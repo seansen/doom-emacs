@@ -1,0 +1,67 @@
+,#+STARTUP: content
+
+* Emacs Basics
+
+
+** Check your commands
+command-log-mode
+global-command-log-mode
+clm/open-command-log-buffer
+** Configuration
+
+** Org-Mode
+
+*** Initial visibility
+#+BEGIN_SRC bash
+,#+STARTUP: overview
+,#+STARTUP: content
+,#+STARTUP: showall
+,#+STARTUP: showeverything
+#+END_SRC
+
+** Configuration
+
+*** init.el
+
+*** package.el
+
+*** config.el
+- `load!' for loading external *.el files relative to this one
+- `use-package' for configuring packages
+- `after!' for running code after a package has loaded
+- `add-load-path!' for adding directories to the `load-path', relative to this file. Emacs searches the `load-path' when you load packages with `require' or `use-package'.
+- `map!' for binding new keys
+- To get information about any of these functions/macros, move the cursor over the highlighted symbol at press 'K' (non-evil users must press 'C-c g k'). This will open documentation for it, including demos of how they are used. You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
+  they are implemented.
+
+** Keybinings
+('this is an unquoted list)
+
+** Emacs-Lisp
+Run Commands with (C-x C-e)/ (Strg-x Strg-e)
+
+(+ 2 2)
+(+ 3 3)
+
+(message "hello world")
+
+
+(defun f ()
+"insert something"
+(interactive)
+(insert "something"
+)
+
+** Links
+[[https://orgmode.org/manual/][Top (The Org Manual)]]
+
+Aproposmode
+You can use the Emacs apropos
+feature to obtain information
+about the Emacs entities that
+match a regular expression (regexp)
+or keywords that you type.
+
+command-log-mode
+global-command-log-mode
+clm/open-command-log-buffer
