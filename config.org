@@ -5,7 +5,7 @@
 *** User
 #+BEGIN_SRC emacs-lisp
 (setq user-full-name "Sean Avery"
-      user-mail-address "seanal@gmx.de")
+      user-mail-address "seanavery@gmx.net")
 #+END_SRC
 
 *** Styles

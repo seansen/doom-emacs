@@ -3,7 +3,7 @@
 (global-undo-tree-mode)
 
 (setq user-full-name "Sean Avery"
-      user-mail-address "seanal@gmx.de")
+      user-mail-address "seanavery@gmx.net")
 
 (setq doom-font (font-spec :family "JetBrains Mono" :size 14))
 (setq doom-theme 'doom-gruvbox)
