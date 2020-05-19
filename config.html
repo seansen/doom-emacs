@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Sean Avery" />
+  <title>config.tmpiFXDga</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="my-doom-config">MY DOOM CONFIG</h1>
+<h1 id="basics">Basics</h1>
+<h2 id="user">User</h2>
+<div class="sourceCode" id="cb1" data-org-language="emacs-lisp"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb1-1"><a href="#cb1-1"></a>(<span class="kw">setq</span> user-full-name <span class="st">&quot;Sean Avery&quot;</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>      user-mail-address <span class="st">&quot;seanavery@gmx.net&quot;</span>)</span></code></pre></div>
+<h2 id="styles">Styles</h2>
+<div class="sourceCode" id="cb2" data-org-language="emacs-lisp"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb2-1"><a href="#cb2-1"></a>(<span class="kw">setq</span> doom-font (font-spec :family <span class="st">&quot;JetBrains Mono&quot;</span> :size <span class="dv">14</span>))</span>
+<span id="cb2-2"><a href="#cb2-2"></a>(<span class="kw">setq</span> doom-theme &#39;doom-gruvbox)</span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="co">;;(setq fancy-splash-image &quot;~/image.png&quot;)</span></span></code></pre></div>
+<h2 id="settings">Settings</h2>
+<div class="sourceCode" id="cb3" data-org-language="emacs-lisp"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb3-1"><a href="#cb3-1"></a>(<span class="kw">setq</span> org-support-shift-select <span class="kw">t</span>)</span>
+<span id="cb3-2"><a href="#cb3-2"></a>(<span class="kw">setq</span> display-line-numbers-type &#39;relative)</span>
+<span id="cb3-3"><a href="#cb3-3"></a>(<span class="kw">setq</span> evil-move-cursor-back <span class="kw">nil</span>)                 <span class="co">; Escape</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>(<span class="kw">setq</span> evil-escape-key-sequence <span class="st">&quot;jk&quot;</span>              <span class="co">; Escape</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>      evil-escape-delay <span class="fl">0.3</span>)                     <span class="co">; Escape</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>(custom-set-faces! &#39;(doom-modeline-evil-insert-state :weight bold :foreground <span class="st">&quot;#339CDB&quot;</span>))</span>
+<span id="cb3-7"><a href="#cb3-7"></a></span>
+<span id="cb3-8"><a href="#cb3-8"></a>(setq-default</span>
+<span id="cb3-9"><a href="#cb3-9"></a> delete-by-moving-to-trash <span class="kw">t</span>                      <span class="co">; Delete files to trash</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a> tab-width <span class="dv">4</span>                                      <span class="co">; Set width for tabs</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a> uniquify-buffer-name-style &#39;forward              <span class="co">; Uniquify buffer names</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a> window-combination-resize <span class="kw">t</span>                      <span class="co">; take new window space from all other windows (not just current)</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a> x-stretch-cursor <span class="kw">t</span>)                              <span class="co">; Stretch cursor to the glyph width</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a></span>
+<span id="cb3-15"><a href="#cb3-15"></a>(<span class="kw">setq</span> undo-limit <span class="dv">80000000</span>                         <span class="co">; Raise undo-limit to 80Mb</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a>      evil-want-fine-undo <span class="kw">t</span>                       <span class="co">; By default while in insert all changes are one big blob. Be more granular</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a>      auto-save-default <span class="kw">t</span>                         <span class="co">; Nobody likes to loose work, I certainly don&#39;t</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a>      inhibit-compacting-font-caches <span class="kw">t</span>)           <span class="co">; When there are lots of glyphs, keep them in memory</span></span>
+<span id="cb3-19"><a href="#cb3-19"></a></span>
+<span id="cb3-20"><a href="#cb3-20"></a>(delete-selection-mode <span class="dv">1</span>)                         <span class="co">; Replace selection when inserting text</span></span>
+<span id="cb3-21"><a href="#cb3-21"></a>(display-time-mode <span class="dv">1</span>)                             <span class="co">; Enable time in the mode-line</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a>(display-battery-mode <span class="dv">1</span>)                          <span class="co">; On laptops it&#39;s nice to know how much power you have</span></span>
+<span id="cb3-23"><a href="#cb3-23"></a>(global-subword-mode <span class="dv">1</span>)                           <span class="co">; Iterate through CamelCase words</span></span></code></pre></div>
+<h2 id="buffer-default">Buffer default</h2>
+<div class="sourceCode" id="cb4" data-org-language="emacs-lisp"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb4-1"><a href="#cb4-1"></a>(setq-default major-mode &#39;org-mode)</span></code></pre></div>
+<h2 id="fullscreen">Fullscreen</h2>
+<div class="sourceCode" id="cb5" data-org-language="emacs-lisp"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">;;(if (eq initial-window-system &#39;x)                 ; if started by emacs command or desktop file</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="co">;;    (toggle-frame-maximized)</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="co">;;  (toggle-frame-fullscreen))</span></span></code></pre></div>
+<h2 id="windowssplit">WindowsSplit</h2>
+<div class="sourceCode" id="cb6" data-org-language="emacs-lisp"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb6-1"><a href="#cb6-1"></a>(<span class="kw">setq</span> evil-vsplit-window-right <span class="kw">t</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>      evil-split-window-below <span class="kw">t</span>)</span>
+<span id="cb6-3"><a href="#cb6-3"></a></span>
+<span id="cb6-4"><a href="#cb6-4"></a>(defadvice! prompt-for-buffer (&amp;<span class="kw">rest</span> _)</span>
+<span id="cb6-5"><a href="#cb6-5"></a>  :after &#39;(evil-window-split evil-window-vsplit)</span>
+<span id="cb6-6"><a href="#cb6-6"></a>  (+ivy/switch-buffer))</span>
+<span id="cb6-7"><a href="#cb6-7"></a></span>
+<span id="cb6-8"><a href="#cb6-8"></a>(<span class="kw">setq</span> +ivy-buffer-preview <span class="kw">t</span>)</span></code></pre></div>
+<h2 id="splasscreen">SplasScreen</h2>
+<p>;;#+BEGIN<sub>SRC</sub> emacs-lisp (defvar fancy-splash-image-template (expand-file-name "~/.doom.d/blackhole-lines-template.svg" doom-private-dir) "Default template svg used for the splash image, with substitutions from ") (defvar fancy-splash-image-nil (expand-file-name "~/.doom.d/blackhole-lines-template.png" doom-private-dir) "An image to use at minimum size, usually a transparent pixel")</p>
+<p>(setq fancy-splash-sizes `((:height 500 :min-height 50 :padding (0 . 4) :template ,(expand-file-name "misc/splash-images/blackhole-lines-0.svg" doom-private-dir)) (:height 440 :min-height 42 :padding (1 . 4) :template ,(expand-file-name "misc/splash-images/blackhole-lines-0.svg" doom-private-dir)) (:height 400 :min-height 38 :padding (1 . 4) :template ,(expand-file-name "misc/splash-images/blackhole-lines-1.svg" doom-private-dir)) (:height 350 :min-height 36 :padding (1 . 3) :template ,(expand-file-name "misc/splash-images/blackhole-lines-2.svg" doom-private-dir)) (:height 300 :min-height 34 :padding (1 . 3) :template ,(expand-file-name "misc/splash-images/blackhole-lines-3.svg" doom-private-dir)) (:height 250 :min-height 32 :padding (1 . 2) :template ,(expand-file-name "misc/splash-images/blackhole-lines-4.svg" doom-private-dir)) (:height 200 :min-height 30 :padding (1 . 2) :template ,(expand-file-name "misc/splash-images/blackhole-lines-5.svg" doom-private-dir)) (:height 100 :min-height 24 :padding (1 . 2) :template ,(expand-file-name "misc/splash-images/emacs-e-template.svg" doom-private-dir)) (:height 0 :min-height 0 :padding (0 . 0) :file ,fancy-splash-image-nil)))</p>
+<p>(defvar fancy-splash-sizes `((:height 500 :min-height 50 :padding (0 . 2)) (:height 440 :min-height 42 :padding (1 . 4)) (:height 330 :min-height 35 :padding (1 . 3)) (:height 200 :min-height 30 :padding (1 . 2)) (:height 0 :min-height 0 :padding (0 . 0) :file ,fancy-splash-image-nil)) "list of plists with the following properties :height the height of the image :min-height minimum `frame-height' for image :padding `+doom-dashboard-banner-padding' to apply :template non-default template file :file file to use instead of template")</p>
+<p>(defvar fancy-splash-template-colours '(("$colour1" . keywords) ("$colour2" . type) ("$colour3" . base5) ("$colour4" . base8)) "list of colour-replacement alists of the form (\"$placeholder\" . 'theme-colour) which applied the template")</p>
+<p>(unless (file-exists-p (expand-file-name "theme-splashes" doom-cache-dir)) (make-directory (expand-file-name "theme-splashes" doom-cache-dir) t))</p>
+<p>(defun fancy-splash-filename (theme-name height) (expand-file-name (concat (file-name-as-directory "theme-splashes") (symbol-name doom-theme) "-" (number-to-string height) ".svg") doom-cache-dir))</p>
+<p>(defun fancy-splash-clear-cache () "Delete all cached fancy splash images" (interactive) (delete-directory (expand-file-name "theme-splashes" doom-cache-dir) t) (message "Cache cleared!"))</p>
+<p>(defun fancy-splash-generate-image (template height) "Read TEMPLATE and create an image if HEIGHT with colour substitutions as ;described by `fancy-splash-template-colours' for the current theme" (with-temp-buffer (insert-file-contents template) (re-search-forward "$height" nil t) (replace-match (number-to-string height) nil nil) (dolist (substitution fancy-splash-template-colours) (beginning-of-buffer) (while (re-search-forward (car substitution) nil t) (replace-match (doom-color (cdr substitution)) nil nil))) (write-region nil nil (fancy-splash-filename (symbol-name doom-theme) height) nil nil)))</p>
+<p>(defun fancy-splash-generate-images () "Perform `fancy-splash-generate-image' in bulk" (dolist (size fancy-splash-sizes) (unless (plist-get size :file) (fancy-splash-generate-image (or (plist-get size :file) (plist-get size :template) fancy-splash-image-template) (plist-get size :height)))))</p>
+<p>(defun ensure-theme-splash-images-exist (&amp;optional height) (unless (file-exists-p (fancy-splash-filename (symbol-name doom-theme) (or height (plist-get (car fancy-splash-sizes) :height)))) (fancy-splash-generate-images)))</p>
+<p>(defun get-appropriate-splash () (let ((height (frame-height))) (cl-some (lambda (size) (when (&gt;= height (plist-get size :min-height)) size)) fancy-splash-sizes)))</p>
+<p>(setq fancy-splash-last-size nil) (setq fancy-splash-last-theme nil) (defun set-appropriate-splash (&amp;optional frame) (let ((appropriate-image (get-appropriate-splash))) (unless (and (equal appropriate-image fancy-splash-last-size) (equal doom-theme fancy-splash-last-theme))) (unless (plist-get appropriate-image :file) (ensure-theme-splash-images-exist (plist-get appropriate-image :height))) (setq fancy-splash-image (or (plist-get appropriate-image :file) (fancy-splash-filename (symbol-name doom-theme) (plist-get appropriate-image :height)))) (setq +doom-dashboard-banner-padding (plist-get appropriate-image :padding)) (setq fancy-splash-last-size appropriate-image) (setq fancy-splash-last-theme doom-theme) (+doom-dashboard-reload)))</p>
+<p>(add-hook 'window-size-change-functions #'set-appropriate-splash) (add-hook 'doom-load-theme-hook #'set-appropriate-splash)</p>
+<p>#+END<sub>SRC</sub></p>
+<h1 id="plugins">Plugins</h1>
+<h2 id="move-text">Move-Text</h2>
+<div class="sourceCode" id="cb7" data-org-language="emacs-lisp"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb7-1"><a href="#cb7-1"></a>(move-text-default-bindings)</span></code></pre></div>
+<h2 id="undotree">UndoTree</h2>
+<pre class="emacs-lis"><code>(global-undo-tree-mode)
+</code></pre>
+<h2 id="org-cliplink">Org-Cliplink</h2>
+<pre class="emacs-lispk"><code>;;;;(global-set-key (kbd &quot;C-x p i&quot;) &#39;org-cliplink)
+</code></pre>
+<h2 id="deaf">Deaf</h2>
+<div class="sourceCode" id="cb10" data-org-language="emacs-lisp"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb10-1"><a href="#cb10-1"></a>(<span class="kw">use-package</span> deft</span>
+<span id="cb10-2"><a href="#cb10-2"></a>:after org</span>
+<span id="cb10-3"><a href="#cb10-3"></a>:bind</span>
+<span id="cb10-4"><a href="#cb10-4"></a>(<span class="st">&quot;C-c n d&quot;</span> . deft)</span>
+<span id="cb10-5"><a href="#cb10-5"></a>:custom</span>
+<span id="cb10-6"><a href="#cb10-6"></a>(deft-recursive <span class="kw">t</span>)</span>
+<span id="cb10-7"><a href="#cb10-7"></a>(deft-use-filter-string-for-filename <span class="kw">t</span>)</span>
+<span id="cb10-8"><a href="#cb10-8"></a>(deft-default-extension <span class="st">&quot;org&quot;</span>)</span>
+<span id="cb10-9"><a href="#cb10-9"></a>(deft-extensions &#39;(<span class="st">&quot;txt&quot;</span> <span class="st">&quot;tex&quot;</span> <span class="st">&quot;org&quot;</span>))</span>
+<span id="cb10-10"><a href="#cb10-10"></a>(deft-directory <span class="st">&quot;~/Dropbox/zettelkasten&quot;</span>))</span></code></pre></div>
+<h2 id="org">Org</h2>
+<p>Org-Directory</p>
+<div class="sourceCode" id="cb11" data-org-language="emacs-lisp"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb11-1"><a href="#cb11-1"></a>(<span class="kw">setq</span> org-directory <span class="st">&quot;~/org/&quot;</span>)</span></code></pre></div>
+<p>Org-Index</p>
+<p><a href="http://2484.de/org-index.html">http://2484.de/org-index.html</a> <a href="https://github.com/marcIhm/org-index/tree/f868df4aa4f49484cf818627251b7c7282d8d20e">GitHub - marcIhm/org-index at f868df4aa4f49484cf818627251b7c7282d8d20e</a></p>
+<p>Org-Protocoll</p>
+<div class="sourceCode" id="cb12" data-org-language="emacs-lisp"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb12-1"><a href="#cb12-1"></a>(<span class="kw">use-package</span> org-roam-protocol)</span></code></pre></div>
+<p>Evil-Org-Mode</p>
+<p><a href="https://github.com/edwtjo/evil-org-mode">GitHub - edwtjo/evil-org-mode: Supplemental evil-mode keybindings to emacs or…</a></p>
+<p>Better Org Return</p>
+<p>From this discussion, I got the code to replace M-RET in lists with just RET, so that Org acts more like other word processors.* <a href="https://github.com/howardabrams/dot-files/blob/master/emacs-org.org">dot-files/emacs-org.org at master · howardabrams/dot-files · GitHub</a></p>
+<div class="sourceCode" id="cb13" data-org-language="emacs-lisp"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb13-1"><a href="#cb13-1"></a>(<span class="kw">defun</span><span class="fu"> ha/org-return </span>(&amp;optional <span class="kw">ignore</span>)</span>
+<span id="cb13-2"><a href="#cb13-2"></a>  <span class="st">&quot;Add new list item, heading or table row with RET.</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="st">A double return on an empty element deletes it.</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="st">Use a prefix arg to get regular RET. &quot;</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a>  (interactive <span class="st">&quot;P&quot;</span>)</span>
+<span id="cb13-6"><a href="#cb13-6"></a>  (<span class="kw">if</span> <span class="kw">ignore</span></span>
+<span id="cb13-7"><a href="#cb13-7"></a>      (org-return)</span>
+<span id="cb13-8"><a href="#cb13-8"></a>    (<span class="kw">cond</span></span>
+<span id="cb13-9"><a href="#cb13-9"></a>     <span class="co">;; Open links like usual</span></span>
+<span id="cb13-10"><a href="#cb13-10"></a>     ((<span class="kw">eq</span> &#39;link (<span class="kw">car</span> (org-element-context)))</span>
+<span id="cb13-11"><a href="#cb13-11"></a>      (org-return))</span>
+<span id="cb13-12"><a href="#cb13-12"></a>     <span class="co">;; lists end with two blank lines, so we need to make sure we are also not</span></span>
+<span id="cb13-13"><a href="#cb13-13"></a>     <span class="co">;; at the beginning of a line to avoid a loop where a new entry gets</span></span>
+<span id="cb13-14"><a href="#cb13-14"></a>     <span class="co">;; created with only one blank line.</span></span>
+<span id="cb13-15"><a href="#cb13-15"></a>     ((<span class="kw">and</span> (org-in-item-p) (<span class="kw">not</span> (bolp)))</span>
+<span id="cb13-16"><a href="#cb13-16"></a>      (<span class="kw">if</span> (org-element-property :contents-begin (org-element-context))</span>
+<span id="cb13-17"><a href="#cb13-17"></a>          (org-insert-heading)</span>
+<span id="cb13-18"><a href="#cb13-18"></a>        (beginning-of-line)</span>
+<span id="cb13-19"><a href="#cb13-19"></a>        (<span class="kw">setf</span> (buffer-substring</span>
+<span id="cb13-20"><a href="#cb13-20"></a>               (line-beginning-position) (line-end-position)) <span class="st">&quot;&quot;</span>)</span>
+<span id="cb13-21"><a href="#cb13-21"></a>        (org-return)))</span>
+<span id="cb13-22"><a href="#cb13-22"></a>     ((org-at-heading-p)</span>
+<span id="cb13-23"><a href="#cb13-23"></a>      (<span class="kw">if</span> (<span class="kw">not</span> (<span class="kw">string=</span> <span class="st">&quot;&quot;</span> (org-element-property :title (org-element-context))))</span>
+<span id="cb13-24"><a href="#cb13-24"></a>          (<span class="kw">progn</span> (org-end-of-meta-data)</span>
+<span id="cb13-25"><a href="#cb13-25"></a>                 (org-insert-heading))</span>
+<span id="cb13-26"><a href="#cb13-26"></a>        (beginning-of-line)</span>
+<span id="cb13-27"><a href="#cb13-27"></a>        (<span class="kw">setf</span> (buffer-substring</span>
+<span id="cb13-28"><a href="#cb13-28"></a>               (line-beginning-position) (line-end-position)) <span class="st">&quot;&quot;</span>)))</span>
+<span id="cb13-29"><a href="#cb13-29"></a>     ((org-at-table-p)</span>
+<span id="cb13-30"><a href="#cb13-30"></a>      (<span class="kw">if</span> (-any?</span>
+<span id="cb13-31"><a href="#cb13-31"></a>           (<span class="kw">lambda</span> (x) (<span class="kw">not</span> (<span class="kw">string=</span> <span class="st">&quot;&quot;</span> x)))</span>
+<span id="cb13-32"><a href="#cb13-32"></a>           (<span class="kw">nth</span></span>
+<span id="cb13-33"><a href="#cb13-33"></a>            (<span class="op">-</span> (org-table-current-dline) <span class="dv">1</span>)</span>
+<span id="cb13-34"><a href="#cb13-34"></a>            (org-table-to-lisp)))</span>
+<span id="cb13-35"><a href="#cb13-35"></a>          (org-return)</span>
+<span id="cb13-36"><a href="#cb13-36"></a>        <span class="co">;; empty row</span></span>
+<span id="cb13-37"><a href="#cb13-37"></a>        (beginning-of-line)</span>
+<span id="cb13-38"><a href="#cb13-38"></a>        (<span class="kw">setf</span> (buffer-substring</span>
+<span id="cb13-39"><a href="#cb13-39"></a>               (line-beginning-position) (line-end-position)) <span class="st">&quot;&quot;</span>)</span>
+<span id="cb13-40"><a href="#cb13-40"></a>        (org-return)))</span>
+<span id="cb13-41"><a href="#cb13-41"></a>     (<span class="kw">t</span></span>
+<span id="cb13-42"><a href="#cb13-42"></a>      (org-return)))))</span>
+<span id="cb13-43"><a href="#cb13-43"></a></span>
+<span id="cb13-44"><a href="#cb13-44"></a>(define-key org-mode-map (kbd <span class="st">&quot;RET&quot;</span>)  #&#39;ha/org-return)</span></code></pre></div>
+<h2 id="roam">Roam</h2>
+<p>Roam</p>
+<div class="sourceCode" id="cb14" data-org-language="emacs-lisp"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb14-1"><a href="#cb14-1"></a>(<span class="kw">setq</span> org-roam-directory <span class="st">&quot;~/Dropbox/zettelkasten/&quot;</span>)</span>
+<span id="cb14-2"><a href="#cb14-2"></a>(<span class="kw">setq</span> org-roam-buffer-position &#39;right)</span>
+<span id="cb14-3"><a href="#cb14-3"></a>(<span class="kw">setq</span> org-roam-buffer-width <span class="fl">0.4</span>)</span>
+<span id="cb14-4"><a href="#cb14-4"></a>(<span class="kw">setq</span> org-roam-index-file <span class="st">&quot;index.org&quot;</span>)</span>
+<span id="cb14-5"><a href="#cb14-5"></a>(<span class="kw">setq</span> org-roam-completion-system &#39;ivy)(after! org-roam</span>
+<span id="cb14-6"><a href="#cb14-6"></a>(map! :leader</span>
+<span id="cb14-7"><a href="#cb14-7"></a>:prefix <span class="st">&quot;n&quot;</span></span>
+<span id="cb14-8"><a href="#cb14-8"></a>:desc <span class="st">&quot;org-roam&quot;</span> <span class="st">&quot;l&quot;</span> #&#39;org-roam</span>
+<span id="cb14-9"><a href="#cb14-9"></a>:desc <span class="st">&quot;org-roam-insert&quot;</span> <span class="st">&quot;i&quot;</span> #&#39;org-roam-insert</span>
+<span id="cb14-10"><a href="#cb14-10"></a>:desc <span class="st">&quot;org-roam-switch-to-buffer&quot;</span> <span class="st">&quot;b&quot;</span> #&#39;org-roam-switch-to-buffer</span>
+<span id="cb14-11"><a href="#cb14-11"></a>:desc <span class="st">&quot;org-roam-find-file&quot;</span> <span class="st">&quot;f&quot;</span> #&#39;org-roam-find-file</span>
+<span id="cb14-12"><a href="#cb14-12"></a>:desc <span class="st">&quot;org-roam-show-graph&quot;</span> <span class="st">&quot;g&quot;</span> #&#39;org-roam-show-graph</span>
+<span id="cb14-13"><a href="#cb14-13"></a>:desc <span class="st">&quot;org-roam-insert&quot;</span> <span class="st">&quot;i&quot;</span> #&#39;org-roam-insert</span>
+<span id="cb14-14"><a href="#cb14-14"></a>:desc <span class="st">&quot;org-roam-capture&quot;</span> <span class="st">&quot;c&quot;</span> #&#39;org-roam-capture</span>
+<span id="cb14-15"><a href="#cb14-15"></a>:desc <span class="st">&quot;org-roam-find-directory&quot;</span> <span class="st">&quot;d&quot;</span> #&#39;org-roam-find-directory</span>
+<span id="cb14-16"><a href="#cb14-16"></a>:desc <span class="st">&quot;org-roam-company&quot;</span> <span class="st">&quot;k&quot;</span> #&#39;company-org-roam</span>
+<span id="cb14-17"><a href="#cb14-17"></a>:desc <span class="st">&quot;org-roam-find-ref&quot;</span> <span class="st">&quot;x&quot;</span> #&#39;org-roam-find-ref</span>
+<span id="cb14-18"><a href="#cb14-18"></a>:desc <span class="st">&quot;org-roam-graph&quot;</span> <span class="st">&quot;y&quot;</span> #&#39;org-roam-graph</span>
+<span id="cb14-19"><a href="#cb14-19"></a>:desc <span class="st">&quot;org-roam-jump-to-index&quot;</span> <span class="st">&quot;j&quot;</span> #&#39;org-roam-jump-to-index</span>
+<span id="cb14-20"><a href="#cb14-20"></a>))</span></code></pre></div>
+<p>Roam-Company-Org</p>
+<p>Company-org-roam is a company backend for use with org-roam. In Org-roam buffers, it provides completion for Org-roam files using its title.<br />
+<a href="https://github.com/org-roam/company-org-roam/tree/674c2bd493f571c5323d69279557a6c18ccbd14e">GitHub - org-roam/company-org-roam at 674c2bd493f571c5323d69279557a6c18ccbd14e</a></p>
+<div class="sourceCode" id="cb15" data-org-language="emacs-lisp"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb15-1"><a href="#cb15-1"></a>(<span class="kw">require</span> &#39;company-org-roam)</span>
+<span id="cb15-2"><a href="#cb15-2"></a>(<span class="kw">use-package</span> company-org-roam</span>
+<span id="cb15-3"><a href="#cb15-3"></a>:when (featurep! :completion company)</span>
+<span id="cb15-4"><a href="#cb15-4"></a>:after org-roam</span>
+<span id="cb15-5"><a href="#cb15-5"></a>:config</span>
+<span id="cb15-6"><a href="#cb15-6"></a>(set-company-backend! &#39;org-mode &#39;(company-org-roam company-yasnippet company-dabbrev)))</span>
+<span id="cb15-7"><a href="#cb15-7"></a></span>
+<span id="cb15-8"><a href="#cb15-8"></a>(use-package! org-roam-server)</span></code></pre></div>
+<p>Company</p>
+<div class="sourceCode" id="cb16" data-org-language="emacs-lisp"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb16-1"><a href="#cb16-1"></a><span class="co">;;(use-package! company-org-roam</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="co">;;  :config</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a><span class="co">;;  (push &#39;company-org-roam company-backends))</span></span></code></pre></div>
+<h1 id="properties">Properties</h1>
+<h2 id="properties-createdate-updatedate">Properties ‘CreateDate, UpdateDate’</h2>
+<div class="sourceCode" id="cb17" data-org-language="emacs-lisp"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb17-1"><a href="#cb17-1"></a>  (<span class="kw">defun</span><span class="fu"> zp/org-find-time-file-property </span>(property &amp;optional anywhere)</span>
+<span id="cb17-2"><a href="#cb17-2"></a>    <span class="st">&quot;Return the position of the time file PROPERTY if it exists.</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a><span class="st">When ANYWHERE is non-nil, search beyond the preamble.&quot;</span></span>
+<span id="cb17-4"><a href="#cb17-4"></a>    (save-excursion</span>
+<span id="cb17-5"><a href="#cb17-5"></a>      (goto-char (point-min))</span>
+<span id="cb17-6"><a href="#cb17-6"></a>      (<span class="kw">let</span> ((first-heading</span>
+<span id="cb17-7"><a href="#cb17-7"></a>             (save-excursion</span>
+<span id="cb17-8"><a href="#cb17-8"></a>               (re-search-forward org-outline-regexp-bol <span class="kw">nil</span> <span class="kw">t</span>))))</span>
+<span id="cb17-9"><a href="#cb17-9"></a>        (<span class="kw">when</span> (re-search-forward (<span class="kw">format</span> <span class="st">&quot;^</span><span class="ch">#\\</span><span class="st">+%s:&quot;</span> property)</span>
+<span id="cb17-10"><a href="#cb17-10"></a>                                 (<span class="kw">if</span> anywhere <span class="kw">nil</span> first-heading)</span>
+<span id="cb17-11"><a href="#cb17-11"></a>                                 <span class="kw">t</span>)</span>
+<span id="cb17-12"><a href="#cb17-12"></a>          (point)))))</span>
+<span id="cb17-13"><a href="#cb17-13"></a></span>
+<span id="cb17-14"><a href="#cb17-14"></a>  (<span class="kw">defun</span><span class="fu"> zp/org-has-time-file-property-p </span>(property &amp;optional anywhere)</span>
+<span id="cb17-15"><a href="#cb17-15"></a>    <span class="st">&quot;Return the position of time file PROPERTY if it is defined.</span></span>
+<span id="cb17-16"><a href="#cb17-16"></a><span class="st">As a special case, return -1 if the time file PROPERTY exists but</span></span>
+<span id="cb17-17"><a href="#cb17-17"></a><span class="st">is not defined.&quot;</span></span>
+<span id="cb17-18"><a href="#cb17-18"></a>    (when-let ((pos (zp/org-find-time-file-property property anywhere)))</span>
+<span id="cb17-19"><a href="#cb17-19"></a>      (save-excursion</span>
+<span id="cb17-20"><a href="#cb17-20"></a>        (goto-char pos)</span>
+<span id="cb17-21"><a href="#cb17-21"></a>        (<span class="kw">if</span> (<span class="kw">and</span> (looking-at-p <span class="st">&quot; &quot;</span>)</span>
+<span id="cb17-22"><a href="#cb17-22"></a>                 (<span class="kw">progn</span> (forward-char)</span>
+<span id="cb17-23"><a href="#cb17-23"></a>                        (org-at-timestamp-p &#39;lax)))</span>
+<span id="cb17-24"><a href="#cb17-24"></a>            pos</span>
+<span id="cb17-25"><a href="#cb17-25"></a>          <span class="dv">-1</span>))))</span>
+<span id="cb17-26"><a href="#cb17-26"></a></span>
+<span id="cb17-27"><a href="#cb17-27"></a>  (<span class="kw">defun</span><span class="fu"> zp/org-set-time-file-property </span>(property &amp;optional anywhere pos)</span>
+<span id="cb17-28"><a href="#cb17-28"></a>    <span class="st">&quot;Set the time file PROPERTY in the preamble.</span></span>
+<span id="cb17-29"><a href="#cb17-29"></a><span class="st">When ANYWHERE is non-nil, search beyond the preamble.</span></span>
+<span id="cb17-30"><a href="#cb17-30"></a><span class="st">If the position of the file PROPERTY has already been computed,</span></span>
+<span id="cb17-31"><a href="#cb17-31"></a><span class="st">it can be passed in POS.&quot;</span></span>
+<span id="cb17-32"><a href="#cb17-32"></a>    (when-let ((pos (<span class="kw">or</span> pos</span>
+<span id="cb17-33"><a href="#cb17-33"></a>                        (zp/org-find-time-file-property property))))</span>
+<span id="cb17-34"><a href="#cb17-34"></a>      (save-excursion</span>
+<span id="cb17-35"><a href="#cb17-35"></a>        (goto-char pos)</span>
+<span id="cb17-36"><a href="#cb17-36"></a>        (<span class="kw">if</span> (looking-at-p <span class="st">&quot; &quot;</span>)</span>
+<span id="cb17-37"><a href="#cb17-37"></a>            (forward-char)</span>
+<span id="cb17-38"><a href="#cb17-38"></a>          (insert <span class="st">&quot; &quot;</span>))</span>
+<span id="cb17-39"><a href="#cb17-39"></a>        (delete-region (point) (line-end-position))</span>
+<span id="cb17-40"><a href="#cb17-40"></a>        (<span class="kw">let*</span> ((now (format-time-string <span class="st">&quot;[%Y-%m-%d %a %H:%M]&quot;</span>)))</span>
+<span id="cb17-41"><a href="#cb17-41"></a>          (insert now)))))</span>
+<span id="cb17-42"><a href="#cb17-42"></a></span>
+<span id="cb17-43"><a href="#cb17-43"></a>  (<span class="kw">defun</span><span class="fu"> zp/org-set-last-modified </span>()</span>
+<span id="cb17-44"><a href="#cb17-44"></a>    <span class="st">&quot;Update the LAST_MODIFIED file property in the preamble.&quot;</span></span>
+<span id="cb17-45"><a href="#cb17-45"></a>    (<span class="kw">when</span> (derived-mode-p &#39;org-mode)</span>
+<span id="cb17-46"><a href="#cb17-46"></a>      (zp/org-set-time-file-property <span class="st">&quot;LAST_MODIFIED&quot;</span>)))</span></code></pre></div>
+<h1 id="templates">Templates</h1>
+<div class="sourceCode" id="cb18" data-org-language="emacs-lisp"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb18-1"><a href="#cb18-1"></a>(<span class="kw">setq</span> org-roam-capture-templates</span>
+<span id="cb18-2"><a href="#cb18-2"></a>&#39;(</span>
+<span id="cb18-3"><a href="#cb18-3"></a>  (<span class="st">&quot;d&quot;</span> <span class="st">&quot;default&quot;</span> plain (<span class="kw">function</span> org-roam--capture-get-point)</span>
+<span id="cb18-4"><a href="#cb18-4"></a>   <span class="st">&quot;%?&quot;</span></span>
+<span id="cb18-5"><a href="#cb18-5"></a>    :file-name <span class="st">&quot;%(format-time-string </span><span class="sc">\&quot;</span><span class="st">%Y%m%d%H%M%S-${slug}</span><span class="sc">\&quot;</span><span class="st"> (current-time) t)&quot;</span></span>
+<span id="cb18-6"><a href="#cb18-6"></a>    :head <span class="st">&quot;#+TITLE: ${title}</span><span class="sc">\n</span><span class="st">#+Author: Sean Averhoff</span><span class="sc">\n</span><span class="st">#+CREATED: %U</span><span class="sc">\n</span><span class="st">#+LAST_MODIFIED: %U</span><span class="sc">\n</span><span class="st">- tags :: </span><span class="sc">\n</span><span class="st">----------</span><span class="sc">\n</span><span class="st">&quot;</span></span>
+<span id="cb18-7"><a href="#cb18-7"></a>        :unnarrowed <span class="kw">t</span>)</span>
+<span id="cb18-8"><a href="#cb18-8"></a></span>
+<span id="cb18-9"><a href="#cb18-9"></a>  (<span class="st">&quot;n&quot;</span> <span class="st">&quot;note&quot;</span> plain (<span class="kw">function</span> org-roam--capture-get-point)</span>
+<span id="cb18-10"><a href="#cb18-10"></a>  <span class="st">&quot;%?&quot;</span></span>
+<span id="cb18-11"><a href="#cb18-11"></a>    :file-name  <span class="st">&quot;%(format-time-string </span><span class="sc">\&quot;</span><span class="st">%Y%m%d%H%M%S-${slug}</span><span class="sc">\&quot;</span><span class="st"> (current-time) t)&quot;</span></span>
+<span id="cb18-12"><a href="#cb18-12"></a>    :head <span class="st">&quot;#+TITLE: ${title}</span><span class="sc">\n</span><span class="st">#+Author: Sean Averhoff</span><span class="sc">\n</span><span class="st">#+CREATED: %U</span><span class="sc">\n</span><span class="st">#+LAST_MODIFIED: %U</span><span class="sc">\n</span><span class="st">- tags :: </span><span class="sc">\n</span><span class="st">----------</span><span class="sc">\n</span><span class="st">&quot;</span></span>
+<span id="cb18-13"><a href="#cb18-13"></a>    :unnarrowed <span class="kw">t</span>)</span>
+<span id="cb18-14"><a href="#cb18-14"></a></span>
+<span id="cb18-15"><a href="#cb18-15"></a>  (<span class="st">&quot;p&quot;</span> <span class="st">&quot;private&quot;</span> plain (<span class="kw">function</span> org-roam--capture-get-point)</span>
+<span id="cb18-16"><a href="#cb18-16"></a>  <span class="st">&quot;%?&quot;</span></span>
+<span id="cb18-17"><a href="#cb18-17"></a>    :file-name <span class="st">&quot;private-${slug}&quot;</span></span>
+<span id="cb18-18"><a href="#cb18-18"></a>    :head <span class="st">&quot;#+TITLE: ${title}</span><span class="sc">\n</span><span class="st">#+Author: ${author-or-editor}&quot;</span></span>
+<span id="cb18-19"><a href="#cb18-19"></a>    :unnarrowed <span class="kw">t</span>)))</span></code></pre></div>
+<h1 id="server-etc">Server etc</h1>
+<div class="sourceCode" id="cb19" data-org-language="emacs-lisp"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb19-1"><a href="#cb19-1"></a>(<span class="kw">setq</span> +mu4e-backend &#39;offlineimap)</span></code></pre></div>
+<h1 id="beta">Beta</h1>
+<h1 id="plugins-1">Plugins</h1>
+<h2 id="org-1">Org</h2>
+<h2 id="roam-2">Roam</h2>
+</body>
+</html>

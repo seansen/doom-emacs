@@ -1,27 +1,28 @@
+
 #+STARTUP: content
 * MY DOOM CONFIG
 
-** Basics
-*** User
+* Basics
+** User
 #+BEGIN_SRC emacs-lisp
 (setq user-full-name "Sean Avery"
       user-mail-address "seanavery@gmx.net")
 #+END_SRC
 
-*** Styles
+** Styles
 #+BEGIN_SRC emacs-lisp
 (setq doom-font (font-spec :family "JetBrains Mono" :size 14))
 (setq doom-theme 'doom-gruvbox)
 ;;(setq fancy-splash-image "~/image.png")
 #+END_SRC
 
-*** Settings
+** Settings
 #+BEGIN_SRC emacs-lisp
 (setq org-support-shift-select t)
 (setq display-line-numbers-type 'relative)
-(setq evil-move-cursor-back nil)
-(setq evil-escape-key-sequence "jk"
-      evil-escape-delay 0.3)
+(setq evil-move-cursor-back nil)                 ; Escape
+(setq evil-escape-key-sequence "jk"              ; Escape
+      evil-escape-delay 0.3)                     ; Escape
 (custom-set-faces! '(doom-modeline-evil-insert-state :weight bold :foreground "#339CDB"))
 
 (setq-default
@@ -42,17 +43,20 @@
 (global-subword-mode 1)                           ; Iterate through CamelCase words
 #+END_SRC
 
-*** Buffer default
+#+RESULTS:
+: t
+
+** Buffer default
 #+BEGIN_SRC emacs-lisp
  (setq-default major-mode 'org-mode)
 #+End_SRC
-*** Fullscreen
+** Fullscreen
 #+BEGIN_SRC emacs-lisp
 ;;(if (eq initial-window-system 'x)                 ; if started by emacs command or desktop file
 ;;    (toggle-frame-maximized)
 ;;  (toggle-frame-fullscreen))
 #+END_SRC
-*** WindowsSplit
+** WindowsSplit
 #+BEGIN_SRC emacs-lisp
 (setq evil-vsplit-window-right t
       evil-split-window-below t)
@@ -63,7 +67,7 @@
 
 (setq +ivy-buffer-preview t)
 #+END_SRC
-*** SplasScreen
+** SplasScreen
 ;;#+BEGIN_SRC emacs-lisp
 (defvar fancy-splash-image-template
   (expand-file-name "~/.doom.d/blackhole-lines-template.svg" doom-private-dir)
@@ -168,22 +172,22 @@
 (add-hook 'window-size-change-functions #'set-appropriate-splash)
 (add-hook 'doom-load-theme-hook #'set-appropriate-splash)
 #+END_SRC
-** Plugins
-*** Move-Text
+* Plugins
+** Move-Text
 #+BEGIN_SRC emacs-lisp
 (move-text-default-bindings)
 #+END_SRC
 
-*** UndoTree
+** UndoTree
 #+BEGIN_SRC emacs-lis
 (global-undo-tree-mode)
 #+END_SRC
 
-*** Org-Cliplink
+** Org-Cliplink
 #+BEGIN_SRC emacs-lispk
 ;;;;(global-set-key (kbd "C-x p i") 'org-cliplink)
 #+END_SRC
-*** Deorg-roam-ref-capture-templatesft-Nav
+** Deaf
 #+BEGIN_SRC emacs-lisp
 (use-package deft
 :after org
@@ -196,7 +200,7 @@
 (deft-extensions '("txt" "tex" "org"))
 (deft-directory "~/Dropbox/zettelkasten"))
 #+END_SRC
-*** Org
+** Org
 **** Org-Directory
 #+BEGIN_SRC emacs-lisp
 (setq org-directory "~/org/")
@@ -210,7 +214,57 @@
 #+END_SRC
 **** Evil-Org-Mode
 [[https://github.com/edwtjo/evil-org-mode][GitHub - edwtjo/evil-org-mode: Supplemental evil-mode keybindings to emacs or...]]
-*** Roam
+**** Better Org Return
+From this discussion, I got the code to replace M-RET in lists with just RET, so that Org acts more like other word processors.*
+[[https://github.com/howardabrams/dot-files/blob/master/emacs-org.org][dot-files/emacs-org.org at master · howardabrams/dot-files · GitHub]]
+#+BEGIN_SRC emacs-lisp
+(defun ha/org-return (&optional ignore)
+  "Add new list item, heading or table row with RET.
+A double return on an empty element deletes it.
+Use a prefix arg to get regular RET. "
+  (interactive "P")
+  (if ignore
+      (org-return)
+    (cond
+     ;; Open links like usual
+     ((eq 'link (car (org-element-context)))
+      (org-return))
+     ;; lists end with two blank lines, so we need to make sure we are also not
+     ;; at the beginning of a line to avoid a loop where a new entry gets
+     ;; created with only one blank line.
+     ((and (org-in-item-p) (not (bolp)))
+      (if (org-element-property :contents-begin (org-element-context))
+          (org-insert-heading)
+        (beginning-of-line)
+        (setf (buffer-substring
+               (line-beginning-position) (line-end-position)) "")
+        (org-return)))
+     ((org-at-heading-p)
+      (if (not (string= "" (org-element-property :title (org-element-context))))
+          (progn (org-end-of-meta-data)
+                 (org-insert-heading))
+        (beginning-of-line)
+        (setf (buffer-substring
+               (line-beginning-position) (line-end-position)) "")))
+     ((org-at-table-p)
+      (if (-any?
+           (lambda (x) (not (string= "" x)))
+           (nth
+            (- (org-table-current-dline) 1)
+            (org-table-to-lisp)))
+          (org-return)
+        ;; empty row
+        (beginning-of-line)
+        (setf (buffer-substring
+               (line-beginning-position) (line-end-position)) "")
+        (org-return)))
+     (t
+      (org-return)))))
+
+(define-key org-mode-map (kbd "RET")  #'ha/org-return)
+#+END_SRC
+
+** Roam
 **** Roam
 #+BEGIN_SRC emacs-lisp
 (setq org-roam-directory "~/Dropbox/zettelkasten/")
@@ -254,8 +308,8 @@ Company-org-roam is a company backend for use with org-roam. In Org-roam buffers
 ;;  :config
 ;;  (push 'company-org-roam company-backends))
 #+END_SRC
-** Properties
-*** Properties ‘CreateDate, UpdateDate’
+* Properties
+** Properties ‘CreateDate, UpdateDate’
 #+BEGIN_SRC emacs-lisp
   (defun zp/org-find-time-file-property (property &optional anywhere)
     "Return the position of the time file PROPERTY if it exists.
@@ -305,7 +359,7 @@ it can be passed in POS."
       (zp/org-set-time-file-property "LAST_MODIFIED")))
 #+END_SRC
 
-** Templates
+* Templates
 #+BEGIN_SRC emacs-lisp
 (setq org-roam-capture-templates
 '(
@@ -329,18 +383,13 @@ it can be passed in POS."
 
 #+END_SRC
 
-** Server etc
+* Server etc
 #+BEGIN_SRC emacs-lisp
 (setq +mu4e-backend 'offlineimap)
 
 #+END_SRC
 
-** Beta
-** Plugins
-*** Org
-*** Roam
-*** Roam
-*** Roam
-*** Roam
-*** Roam
-*** Roam
+* Beta
+* Plugins
+** Org
+** Roam
