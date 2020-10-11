@@ -1,62 +1,158 @@
+#+TITLE: My Emacs Configuration
+#+AUTHOR: Sean Avery
+#+EMAIL: seanavery@gmx.net
+#+OPTIONS: num:nil
+#+STARTUP: overview
+#+Tag: [[org:../start-index.org][INDEX]]
+#+Setupfile: ~/../../../mnt/c/Users/averh/Dropbox/org-templates/org-html-themes/setup/theme-readtheorg.setup
 
-#+STARTUP: content
-* MY DOOM CONFIG
+* Information's
+This is my Emacs-Configuration file. Its still in the making.
+** Other Options
+#+BEGIN_EXAMPLE emacs-lisp
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="rethink.css" />
+#+OPTIONS: toc:nil num:nil html-style:nil
+#+PANDOC_OPTIONS: reference-doc:reference.docx
+#+END_EXAMPLE
+** Environment Options
+#+BEGIN_EXAMPLE emacs-lisp
+;; On Windows
+(if (eq system-type 'windows-nt)
+    (setq load-path (cons "~/elisp/org-6.34c/lisp" load-path))
+  (set-default-font "-outline-Consolas-normal-r-normal-normal-14-97-96-96-c-*-iso8859-1")
+  )
 
-* Basics
-** User
+;; On Linux
+(if (eq system-type 'gnu/linux)
+    (setq load-path (cons "~/elisp/org-current/lisp" load-path))
+  (set-default-font "Inconsolata-11")
+  )
+#+END_EXAMPLE
+** Personal Information
 #+BEGIN_SRC emacs-lisp
-(setq user-full-name "Sean Avery"
-      user-mail-address "seanavery@gmx.net")
+(setq user-full-name "Sean Avery")
+(setq user-mail-address "seanavery@gmx.net")
+#+END_SRC
+* Debug
+#+BEGIN_SRC emacs-lisp
+(setq debug-on-error t)
 #+END_SRC
 
-** Styles
+* Bootstrap
+** Windows Variables
 #+BEGIN_SRC emacs-lisp
-(setq doom-font (font-spec :family "JetBrains Mono" :size 14))
+(if (eq system-type 'windows-nt)
+(setq org_notes (concat (getenv "HOME") "/Dropbox/zettelkasten/"))
+(setq org_agenda (concat (getenv "HOME") "/Dropbox/zettelkasten/task.org"))
+(setq org_bib (concat (getenv "HOME") "/Dropbox/zettelkasten/bibnotes.org"))
+(setq org_export (concat (getenv "HOME") "/Dropbox/org-export/"))
+(setq zot_bib (concat (getenv "HOME") "/Dropbox/zettelkasten/MeineBibliothek.bib")))
+#+END_SRC
+
+** Linux Variables
+#+BEGIN_SRC emacs-lisp
+(if (eq system-type 'gnu/linux)
+(setq org_notes (concat (getenv "mnt") "/../../../mnt/c/Users/averh/Dropbox/zettelkasten/")))
+(setq org_agenda (concat (getenv "mnt") "/../../../mnt/c/Users/averh/Dropbox/zettelkasten/task.org"))
+(setq org_bib (concat (getenv "mnt") "/../../../mnt/c/Users/averh/Dropbox/zettelkasten/bibnotes.org"))
+(setq org_export (concat (getenv "mnt") "/../../../mnt/c/Users/averh/Dropbox/org-export/"))
+(setq zot_bib (concat (getenv "mnt") "/../../../mnt/c/Users/averh/Dropbox/zettelkasten/MeineBibliothek.bib"))
+#+END_SRC
+
+** UTF8 Everywhere
+#+BEGIN_SRC emacs-lisp
+(setq-default buffer-file-coding-system 'utf-8-unix)
+(set-terminal-coding-system 'utf-8)
+(set-language-environment 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+(setq locale-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+#+END_SRC
+
+** Initial Buffer
+#+BEGIN_SRC emacs-lisp
+(if (eq system-type 'windows-nt)
+(setq initial-buffer-choice "~/Dropbox/zettelkasten/start-index.org"))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(if (eq system-type 'gnu/linux)
+(setq initial-buffer-choice "/mnt/c/Users/averh/Dropbox/zettelkasten/start-index.org"))
+#+END_SRC
+** Frame Settings
+#+BEGIN_SRC emacs-lisp
+(menu-bar-mode -1)                       ; Minimal menu bar
+(tool-bar-mode -1)                       ; No toolbar
+(scroll-bar-mode -1)                     ; Disable scroll bars
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(setq default-frame-alist
+      '((top . 70) (left . 10)
+        (width . 100) (height . 50)))
+
+(setq initial-frame-alist '
+      ((top . 70) (left . 10)
+       (width . 100) (height . 50)))
+#+END_SRC
+
+** Mode Line Display
+#+BEGIN_SRC emacs-lisp
+(delete-selection-mode 1)                ; Replace selection when inserting text
+(display-time-mode 1)                    ; Enable time in the mode-line
+(display-battery-mode 1)                 ; It's nice to know how much power you have
+(setq display-time-day-and-date t)       ; Display time and date
+#+END_SRC
+
+** Line Numbers
+I prefer relative line numbers. Lets make it global.
+#+BEGIN_SRC emacs-lisp
+(setq display-line-numbers-type 'relative) ;
+#+END_SRC
+** File Movement
+#+BEGIN_SRC emacs-lisp
+(global-display-line-numbers-mode)       ; display line numbers
+(setq line-move-visual t)                ; move around lines based on how they displayed
+#+END_SRC
+
+** Theme Settings
+Doom has a couple of Themes. My favorite Gruvbox!
+#+BEGIN_SRC emacs-lisp
 (setq doom-theme 'doom-gruvbox)
-;;(setq fancy-splash-image "~/image.png")
-#+END_SRC
-
-** Settings
-#+BEGIN_SRC emacs-lisp
-(setq org-support-shift-select t)
-(setq display-line-numbers-type 'relative)
-(setq evil-move-cursor-back nil)                 ; Escape
-(setq evil-escape-key-sequence "jk"              ; Escape
-      evil-escape-delay 0.3)                     ; Escape
 (custom-set-faces! '(doom-modeline-evil-insert-state :weight bold :foreground "#339CDB"))
-
-(setq-default
- delete-by-moving-to-trash t                      ; Delete files to trash
- tab-width 4                                      ; Set width for tabs
- uniquify-buffer-name-style 'forward              ; Uniquify buffer names
- window-combination-resize t                      ; take new window space from all other windows (not just current)
- x-stretch-cursor t)                              ; Stretch cursor to the glyph width
-
-(setq undo-limit 80000000                         ; Raise undo-limit to 80Mb
-      evil-want-fine-undo t                       ; By default while in insert all changes are one big blob. Be more granular
-      auto-save-default t                         ; Nobody likes to loose work, I certainly don't
-      inhibit-compacting-font-caches t)           ; When there are lots of glyphs, keep them in memory
-
-(delete-selection-mode 1)                         ; Replace selection when inserting text
-(display-time-mode 1)                             ; Enable time in the mode-line
-(display-battery-mode 1)                          ; On laptops it's nice to know how much power you have
-(global-subword-mode 1)                           ; Iterate through CamelCase words
 #+END_SRC
 
-#+RESULTS:
-: t
-
-** Buffer default
+** Font Face
+Setting fonts.
 #+BEGIN_SRC emacs-lisp
- (setq-default major-mode 'org-mode)
+doom-big-font (font-spec :family "JetBrains Mono" :size 36)                    ;
+doom-variable-pitch-font (font-spec :family "Overpass" :size 24)               ;
+;;doom-serif-font (font-spec :family "IBM Plex Mono" :weight 'light))          ;
+;;(setq fancy-splash-image "~/image.png")                                      ;
+#+END_SRC
+
+** Separate Lines
+[[https://yiufung.net/post/org-mode-hidden-gems-pt1/][Org-mode Hidden Gems - 01 Document Structure]]
+#+BEGIN_SRC emacs-lisp
+(setq org-cycle-separator-lines 0)
+#+END_SRC
+
+** Buffer Settings
+Let Emacs initializes in Org-Mode
+#+BEGIN_SRC emacs-lisp
+;; Default Emacs mode on initializaiton
+(setq-default major-mode 'org-mode)
 #+End_SRC
-** Fullscreen
+
+Lets use some buffer names.
 #+BEGIN_SRC emacs-lisp
-;;(if (eq initial-window-system 'x)                 ; if started by emacs command or desktop file
-;;    (toggle-frame-maximized)
-;;  (toggle-frame-fullscreen))
+(setq doom-fallback-buffer-name "$Doom"
+      +doom-dashboard-name "$ Doom")
 #+END_SRC
-** WindowsSplit
+
+Ask which buffer to open after splitting the window.
 #+BEGIN_SRC emacs-lisp
 (setq evil-vsplit-window-right t
       evil-split-window-below t)
@@ -67,250 +163,245 @@
 
 (setq +ivy-buffer-preview t)
 #+END_SRC
-** SplasScreen
-;;#+BEGIN_SRC emacs-lisp
-(defvar fancy-splash-image-template
-  (expand-file-name "~/.doom.d/blackhole-lines-template.svg" doom-private-dir)
-  "Default template svg used for the splash image, with substitutions from ")
-(defvar fancy-splash-image-nil
-  (expand-file-name "~/.doom.d/blackhole-lines-template.png" doom-private-dir)
-  "An image to use at minimum size, usually a transparent pixel")
 
-(setq fancy-splash-sizes
-  `((:height 500 :min-height 50 :padding (0 . 4) :template ,(expand-file-name "misc/splash-images/blackhole-lines-0.svg" doom-private-dir))
-    (:height 440 :min-height 42 :padding (1 . 4) :template ,(expand-file-name "misc/splash-images/blackhole-lines-0.svg" doom-private-dir))
-    (:height 400 :min-height 38 :padding (1 . 4) :template ,(expand-file-name "misc/splash-images/blackhole-lines-1.svg" doom-private-dir))
-    (:height 350 :min-height 36 :padding (1 . 3) :template ,(expand-file-name "misc/splash-images/blackhole-lines-2.svg" doom-private-dir))
-    (:height 300 :min-height 34 :padding (1 . 3) :template ,(expand-file-name "misc/splash-images/blackhole-lines-3.svg" doom-private-dir))
-    (:height 250 :min-height 32 :padding (1 . 2) :template ,(expand-file-name "misc/splash-images/blackhole-lines-4.svg" doom-private-dir))
-    (:height 200 :min-height 30 :padding (1 . 2) :template ,(expand-file-name "misc/splash-images/blackhole-lines-5.svg" doom-private-dir))
-    (:height 100 :min-height 24 :padding (1 . 2) :template ,(expand-file-name "misc/splash-images/emacs-e-template.svg" doom-private-dir))
-    (:height 0   :min-height 0  :padding (0 . 0) :file ,fancy-splash-image-nil)))
+** Browser Settings!!!
+#+BEGIN_SRC emacs-lisp
+(setq
+ browse-url-browser-function 'browse-url-generic
+ browse-url-generic-program "firefox")
+(setq browse-url-browser-function
+      'browse-url-default-windows-browser)  ;win10
+#+END_SRC
 
-(defvar fancy-splash-sizes
-  `((:height 500 :min-height 50 :padding (0 . 2))
-    (:height 440 :min-height 42 :padding (1 . 4))
-    (:height 330 :min-height 35 :padding (1 . 3))
-    (:height 200 :min-height 30 :padding (1 . 2))
-    (:height 0   :min-height 0  :padding (0 . 0) :file ,fancy-splash-image-nil))
-  "list of plists with the following properties
-  :height the height of the image
-  :min-height minimum `frame-height' for image
-  :padding `+doom-dashboard-banner-padding' to apply
-  :template non-default template file
-  :file file to use instead of template")
+** Evil Settings
+Some evil stuff
+#+BEGIN_SRC emacs-lisp
+(setq evil-move-cursor-back nil)
+(setq evil-escape-key-sequence "jk"
+      evil-escape-delay 0.63
+      evil-escape-unordered-key-sequence t)
+#+END_SRC
 
-(defvar fancy-splash-template-colours
-  '(("$colour1" . keywords) ("$colour2" . type) ("$colour3" . base5) ("$colour4" . base8))
-  "list of colour-replacement alists of the form (\"$placeholder\" . 'theme-colour) which applied the template")
+** Undo Settings
+#+BEGIN_SRC emacs-lisp
+(setq undo-limit 80000000                         ; Raise undo-limit to 80Mb
+      evil-want-fine-undo t                       ; By default while in insert all changes are one big blob. Be more granular
+      auto-save-default t                         ; Nobody likes to loose work, I certainly don't
+      inhibit-compacting-font-caches t)           ; When there are lots of glyphs, keep them in memory
+#+END_SRC
 
-(unless (file-exists-p (expand-file-name "theme-splashes" doom-cache-dir))
-  (make-directory (expand-file-name "theme-splashes" doom-cache-dir) t))
+** Other Settings
+#+BEGIN_SRC emacs-lisp
+(setq org-catch-invisible-edits 'show-and-error)  ; Avoid inadvertent text edit in invisible area
+(setq-default
+ delete-by-moving-to-trash t                      ; Delete files to trash
+ tab-width 4                                      ; Set width for tabs
+ uniquify-buffer-name-style 'forward              ; Uniquify buffer names
+ window-combination-resize t                      ; take new window space from all other windows (not just current)
+ x-stretch-cursor t                               ; Stretch cursor to the glyph width
+ global-subword-mode 1)                           ; Iterate through CamelCase words
+#+END_SRC
 
-(defun fancy-splash-filename (theme-name height)
-  (expand-file-name (concat (file-name-as-directory "theme-splashes")
-                            (symbol-name doom-theme)
-                            "-" (number-to-string height) ".svg")
-                    doom-cache-dir))
+** Windows Shell
+#+BEGIN_SRC emacs-lisp
+(if (eq system-type 'windows-nt)
+(defun run-bash ()
+      (interactive)
+      (let ((shell-file-name "C:\\Program Files\\Git\\bin\\bash.exe"))
+            (shell "*bash*")))
 
-(defun fancy-splash-clear-cache ()
-  "Delete all cached fancy splash images"
+(defun run-cmdexe ()
+      (interactive)
+      (let ((shell-file-name "cmd.exe"))
+            (shell "*cmd.exe*")))
+
+(defun run-powershell ()
+  "Run powershell"
   (interactive)
-  (delete-directory (expand-file-name "theme-splashes" doom-cache-dir) t)
-  (message "Cache cleared!"))
-
-(defun fancy-splash-generate-image (template height)
-  "Read TEMPLATE and create an image if HEIGHT with colour substitutions as  ;described by `fancy-splash-template-colours' for the current theme"
-    (with-temp-buffer
-      (insert-file-contents template)
-      (re-search-forward "$height" nil t)
-      (replace-match (number-to-string height) nil nil)
-      (dolist (substitution fancy-splash-template-colours)
-        (beginning-of-buffer)
-        (while (re-search-forward (car substitution) nil t)
-          (replace-match (doom-color (cdr substitution)) nil nil)))
-      (write-region nil nil
-                    (fancy-splash-filename (symbol-name doom-theme) height) nil nil)))
-
-(defun fancy-splash-generate-images ()
-  "Perform `fancy-splash-generate-image' in bulk"
-  (dolist (size fancy-splash-sizes)
-    (unless (plist-get size :file)
-      (fancy-splash-generate-image (or (plist-get size :file)
-                                       (plist-get size :template)
-                                       fancy-splash-image-template)
-                                   (plist-get size :height)))))
-
-(defun ensure-theme-splash-images-exist (&optional height)
-  (unless (file-exists-p (fancy-splash-filename
-                          (symbol-name doom-theme)
-                          (or height
-                              (plist-get (car fancy-splash-sizes) :height))))
-    (fancy-splash-generate-images)))
-
-(defun get-appropriate-splash ()
-  (let ((height (frame-height)))
-    (cl-some (lambda (size) (when (>= height (plist-get size :min-height)) size))
-             fancy-splash-sizes)))
-
-(setq fancy-splash-last-size nil)
-(setq fancy-splash-last-theme nil)
-(defun set-appropriate-splash (&optional frame)
-  (let ((appropriate-image (get-appropriate-splash)))
-    (unless (and (equal appropriate-image fancy-splash-last-size)
-                 (equal doom-theme fancy-splash-last-theme)))
-    (unless (plist-get appropriate-image :file)
-      (ensure-theme-splash-images-exist (plist-get appropriate-image :height)))
-    (setq fancy-splash-image
-          (or (plist-get appropriate-image :file)
-              (fancy-splash-filename (symbol-name doom-theme) (plist-get appropriate-image :height))))
-    (setq +doom-dashboard-banner-padding (plist-get appropriate-image :padding))
-    (setq fancy-splash-last-size appropriate-image)
-    (setq fancy-splash-last-theme doom-theme)
-    (+doom-dashboard-reload)))
-
-(add-hook 'window-size-change-functions #'set-appropriate-splash)
-(add-hook 'doom-load-theme-hook #'set-appropriate-splash)
+  (async-shell-command "c:/windows/system32/WindowsPowerShell/v1.0/powershell.exe -Command -"
+               nil
+               nil)))
 #+END_SRC
-* Plugins
-** Move-Text
+
 #+BEGIN_SRC emacs-lisp
-(move-text-default-bindings)
+(if (eq system-type 'windows-nt)
+  (setq w32-allow-system-shell t) ; enables cmd.exe as shell
+  (setq save-interprogram-paste-before-kill 1 ; stop killing my clipboard, plz
+        ; ghostscript on windows
+        ; see https://www.emacswiki.org/emacs/docviewmode for details
+        doc-view-ghostscript-program "~/Applications/msys2/mingw64/bin/gswin32c.exe"
+        ; set curl location
+        request-curl "~/Applications/msys2/mingw64/bin/curl.exe")
+  (cond ((executable-find "aspell") ; spell-checking
+         (setq ispell-program-name "aspell")
+         (setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_us")))))
 #+END_SRC
 
-** UndoTree
-#+BEGIN_SRC emacs-lis
-(global-undo-tree-mode)
+** Windows System Variables
+#+BEGIN_SRC emacs-lisp
+(if (eq system-type 'windows-nt)
+(setenv  "PATH" (concat
+                ;; "c:/Windows/System32" ";"
+                 "c:/Windows/Microsoft.NET/Framework/v4.0.30319" ";"
+                 "C:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319" ";"
+                 ;; Unix tools
+                 "C:\\Program Files\\Git\\usr\\bin" ";"
+                 ;; User binary files
+                 "C:\\User\\arch\\bin" ";"
+                 ;; Mono Installation.
+                 "c:\\Program Files\\Mono\\bin" ";"
+                 "c:\\Program Files\\Mono\\lib\\mono\\4.5" ";"
+                 (getenv "PATH")
+         )))
 #+END_SRC
 
-** Org-Cliplink
-#+BEGIN_SRC emacs-lispk
-;;;;(global-set-key (kbd "C-x p i") 'org-cliplink)
-#+END_SRC
-** Deaf
+** Windows Pdf-Tools & MySys64
+[[https://gist.github.com/justbur/afb5f605def2376eeffc643f7b7daae9][Install pdf-tools on windows with msys2 · GitHub]]
 #+BEGIN_SRC emacs-lisp
-(use-package deft
-:after org
-:bind
-("C-c n d" . deft)
-:custom
-(deft-recursive t)
-(deft-use-filter-string-for-filename t)
-(deft-default-extension "org")
-(deft-extensions '("txt" "tex" "org"))
-(deft-directory "~/Dropbox/zettelkasten"))
-#+END_SRC
-** Org
-**** Org-Directory
-#+BEGIN_SRC emacs-lisp
-(setq org-directory "~/org/")
-#+END_SRC
-**** Org-Index
-[[http://2484.de/org-index.html]]
-[[https://github.com/marcIhm/org-index/tree/f868df4aa4f49484cf818627251b7c7282d8d20e][GitHub - marcIhm/org-index at f868df4aa4f49484cf818627251b7c7282d8d20e]]
-**** Org-Protocoll
-#+BEGIN_SRC emacs-lisp
-(use-package org-roam-protocol)
-#+END_SRC
-**** Evil-Org-Mode
-[[https://github.com/edwtjo/evil-org-mode][GitHub - edwtjo/evil-org-mode: Supplemental evil-mode keybindings to emacs or...]]
-**** Better Org Return
-From this discussion, I got the code to replace M-RET in lists with just RET, so that Org acts more like other word processors.*
-[[https://github.com/howardabrams/dot-files/blob/master/emacs-org.org][dot-files/emacs-org.org at master · howardabrams/dot-files · GitHub]]
-#+BEGIN_SRC emacs-lisp
-(defun ha/org-return (&optional ignore)
-  "Add new list item, heading or table row with RET.
-A double return on an empty element deletes it.
-Use a prefix arg to get regular RET. "
-  (interactive "P")
-  (if ignore
-      (org-return)
-    (cond
-     ;; Open links like usual
-     ((eq 'link (car (org-element-context)))
-      (org-return))
-     ;; lists end with two blank lines, so we need to make sure we are also not
-     ;; at the beginning of a line to avoid a loop where a new entry gets
-     ;; created with only one blank line.
-     ((and (org-in-item-p) (not (bolp)))
-      (if (org-element-property :contents-begin (org-element-context))
-          (org-insert-heading)
-        (beginning-of-line)
-        (setf (buffer-substring
-               (line-beginning-position) (line-end-position)) "")
-        (org-return)))
-     ((org-at-heading-p)
-      (if (not (string= "" (org-element-property :title (org-element-context))))
-          (progn (org-end-of-meta-data)
-                 (org-insert-heading))
-        (beginning-of-line)
-        (setf (buffer-substring
-               (line-beginning-position) (line-end-position)) "")))
-     ((org-at-table-p)
-      (if (-any?
-           (lambda (x) (not (string= "" x)))
-           (nth
-            (- (org-table-current-dline) 1)
-            (org-table-to-lisp)))
-          (org-return)
-        ;; empty row
-        (beginning-of-line)
-        (setf (buffer-substring
-               (line-beginning-position) (line-end-position)) "")
-        (org-return)))
-     (t
-      (org-return)))))
-
-(define-key org-mode-map (kbd "RET")  #'ha/org-return)
+(setenv "PATH" (concat "C:\\msys64\\mingw64\\bin;" (getenv "PATH")))
+(prefer-coding-system 'utf-8-unix)
 #+END_SRC
 
-** Roam
-**** Roam
+** Windows Search Everything
 #+BEGIN_SRC emacs-lisp
-(setq org-roam-directory "~/Dropbox/zettelkasten/")
-(setq org-roam-buffer-position 'right)
-(setq org-roam-buffer-width 0.4)
-(setq org-roam-index-file "index.org")
-(setq org-roam-completion-system 'ivy)(after! org-roam
+(when (eq system-type 'windows-nt)
+(with-eval-after-load 'counsel
+    (defun counsel-locate-cmd-es (input)
+      "Return a shell command based on INPUT."
+      (counsel-require-program "es.exe")
+      (format "es.exe -r %s"
+              (counsel--elisp-to-pcre
+               (ivy--regex input t))))))
+#+END_SRC
+
+* Keybindings
+#+BEGIN_EXAMPLE emacs-lisp
 (map! :leader
-:prefix "n"
-:desc "org-roam" "l" #'org-roam
-:desc "org-roam-insert" "i" #'org-roam-insert
-:desc "org-roam-switch-to-buffer" "b" #'org-roam-switch-to-buffer
-:desc "org-roam-find-file" "f" #'org-roam-find-file
-:desc "org-roam-show-graph" "g" #'org-roam-show-graph
-:desc "org-roam-insert" "i" #'org-roam-insert
-:desc "org-roam-capture" "c" #'org-roam-capture
-:desc "org-roam-find-directory" "d" #'org-roam-find-directory
-:desc "org-roam-company" "k" #'company-org-roam
-:desc "org-roam-find-ref" "x" #'org-roam-find-ref
-:desc "org-roam-graph" "y" #'org-roam-graph
-:desc "org-roam-jump-to-index" "j" #'org-roam-jump-to-index
-))
+:prefix "k"
+:desc "amread-mode" "a" #'amread-mode
+:desc "amread-start" "s" #'amread-start
+:desc "amread-stop" "q" #'amread-stop
+)
+
+(map! :leader
+      :desc "New journal entry"
+      "l j j" #'org-journal-new-entry)
+#+END_EXAMPLE
+#+BEGIN_SRC emacs-lisp
+(map! :leader
+      (:prefix-map ("a" . "applications")
+       (:prefix ("a" . "amread")
+        :desc "amread-mode" "a" #'amread-mode
+        :desc "amread-start" "s" #'amread-start
+        :desc "amread-stop" "q" #'amread-stop
+        :desc "New journal entry" "j" #'org-journal-new-entry
+        :desc "Search journal entry" "s" #'org-journal-search
+        )
+        (:prefix ("t" . "terminal")
+        :desc "bash" "b" #'run-cmdexe
+        :desc "cmd" "c" #'run-bash
+        )
+        (:prefix ("k" . "kill-ring")
+        :desc "cmd" "k" #'helm-show-kill-ring
+        )
+       ))
 #+END_SRC
 
-**** Roam-Company-Org
-Company-org-roam is a company backend for use with org-roam. In Org-roam buffers, it provides completion for Org-roam files using its title.\\
-[[https://github.com/org-roam/company-org-roam/tree/674c2bd493f571c5323d69279557a6c18ccbd14e][GitHub - org-roam/company-org-roam at 674c2bd493f571c5323d69279557a6c18ccbd14e]]
+* Functions
+** List current Miner-Modes
 #+BEGIN_SRC emacs-lisp
-(require 'company-org-roam)
-(use-package company-org-roam
-:when (featurep! :completion company)
-:after org-roam
-:config
-(set-company-backend! 'org-mode '(company-org-roam company-yasnippet company-dabbrev)))
+(defun saa/current-minor-modes ()
+  "Return the list of minor modes enabled in the current buffer."
+  (interactive)
+  (delq nil
+	(mapcar (lambda (mode)
+		  (if (and (boundp mode) (symbol-value mode))
+		      mode))
+		minor-mode-list)))
+#+END_SRC
 
-(use-package! org-roam-server)
-#+END_SRC
-**** Company
+** Insert Today’s Date
 #+BEGIN_SRC emacs-lisp
-;;(use-package! company-org-roam
-;;  :config
-;;  (push 'company-org-roam company-backends))
+(require 'ts)
+
+(defun saa-today (&optional arg)
+"Insert today's date.
+
+A prefix ARG specifies how many days to move;
+negative means previous day.
+
+If region selected, parse region as today's date pivot."
+  (interactive "P")
+  (let ((date (if (use-region-p)
+                  (ts-parse (buffer-substring-no-properties (region-beginning) (region-end)))
+                (ts-now)))
+        (arg (or arg 0)))
+    (if (use-region-p)
+        (delete-region (region-beginning) (region-end)))
+    (insert (ts-format "%A, %B %e, %Y" (ts-adjust 'day arg date)))))
 #+END_SRC
-* Properties
-** Properties ‘CreateDate, UpdateDate’
+
+** Insert Current Filename
 #+BEGIN_SRC emacs-lisp
+(defun saa/insert-filename-as-heading ()
+  "Take current filename (word separated by dash) as heading."
+  (interactive)
+  (insert
+   (capitalize
+    (replace-regexp-in-string "-" " " (file-name-sans-extension (buffer-name))))))
+#+END_SRC
+
+** Rename Current Buffer-File
+#+BEGIN_SRC emacs-lisp
+(defun saa/rename-current-buffer-file ()
+  "Renames current buffer and file it is visiting."
+  (interactive)
+  (let ((name (buffer-name))
+        (filename (buffer-file-name)))
+    (if (not (and filename (file-exists-p filename)))
+        (error "Buffer '%s' is not visiting a file!" name)
+      (let ((new-name (read-file-name "New name: " filename)))
+        (if (get-buffer new-name)
+            (error "A buffer named '%s' already exists!" new-name)
+          (rename-file filename new-name 1)
+          (rename-buffer new-name)
+          (set-visited-file-name new-name)
+          (set-buffer-modified-p nil)
+          (message "File '%s' successfully renamed to '%s'"
+                   name (file-name-nondirectory new-name)))))))
+
+(global-set-key (kbd "C-x C-r") 'rename-current-buffer-file)
+#+END_SRC
+
+** Get String from File
+Muss noch getestet werden.
+#+BEGIN_SRC emacs-lisp
+(defun zp/get-string-from-file (file-path)
+  "Read file content from FILE-PATH."
+  (with-temp-buffer
+    (insert-file-contents file-path)
+    (buffer-string)))
+#+END_SRC
+
+** Flyspell with Whitespace-Mode
+#+BEGIN_SRC emacs-lisp
+(defun saa/flyspell-and-whitespace-mode ()
+  "Toggle `flyspell-mode' and `whitespace-mode'."
+  (interactive)
+  (if (derived-mode-p 'prog-mode)
+      (flyspell-prog-mode)
+    (flyspell-mode)
+    (when flyspell-mode
+      (flyspell-buffer)))
+  (whitespace-mode 'toggle))
+
+(global-set-key (kbd "<f9>") #'saa/flyspell-and-whitespace-mode)
+#+END_SRC
+
+
+** Create-Date/Update-Date
+#+BEGIN_SRC emacs-lisp
+    (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
   (defun zp/org-find-time-file-property (property &optional anywhere)
     "Return the position of the time file PROPERTY if it exists.
 When ANYWHERE is non-nil, search beyond the preamble."
@@ -359,7 +450,767 @@ it can be passed in POS."
       (zp/org-set-time-file-property "LAST_MODIFIED")))
 #+END_SRC
 
-* Templates
+** Kill line without Kill-Ring
+#+BEGIN_SRC emacs-lisp
+(defun saa-delete-line ()
+  "Delete from current position to end of line without pushing to `kill-ring'."
+  (interactive)
+  (delete-region (point) (line-end-position)))
+
+(defun saa-delete-whole-line ()
+  "Delete whole line without pushing to kill-ring."
+  (interactive)
+  (delete-region (line-beginning-position) (line-end-position)))
+
+(defun saa-smart-delete-line ()
+  "Kill to the end of the line and kill whole line on the next call."
+  (interactive)
+  (let ((orig-point (point)))
+    (move-end-of-line 1)
+    (if (= orig-point (point))
+        (aza-delete-whole-line)
+      (goto-char orig-point)
+      (aza-delete-line))))
+#+END_SRC
+
+** Remind Me
+#+BEGIN_SRC emacs-lisp
+(defun play-reminder-sound ()
+  (start-process "" nil "mpv" coin-work-medium-sound))
+
+(defun saa/remind-me ()
+  "Notify with a sound after certain time"
+  (interactive)
+  (let ((time (read-string "Time (min|sec): " "10 min")))
+    (message "I will remind you after %s" time)
+    (run-at-time time nil #'play-reminder-sound)))
+#+END_SRC
+
+** Playing Multimedia Files
+#+BEGIN_SRC emacs-lisp
+(defun start-mpv (path &optional playlist-p)
+  "Start mpv with specified arguments"
+  (let* ((default-cmd "mpv --force-window")
+         (cmd (if playlist-p
+                  (s-append " --loop-playlist --playlist=" default-cmd)
+                (s-append " --loop " default-cmd))))
+    (call-process-shell-command (s-concat cmd (shell-quote-argument path)) nil 0)))
+
+(defun mpv ()
+  "Play a file in current line"
+  (interactive)
+  (start-mpv (dired-get-filename)))
+
+(defun mpv-dir ()
+  "Play all multimedia files in current directory"
+  (interactive)
+  (start-mpv default-directory))
+
+(defun mpv-playlist ()
+  "Play a playlist in current line"
+  (interactive)
+  (start-mpv (dired-get-filename) t))
+#+END_SRC
+
+** TS
+#+BEGIN_SRC emacs-lisp
+(load! "~/../../../mnt/c/Users/averh/Dropbox/emacs-packages/ts/ts.el")
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(use-package! ts)
+#+END_SRC
+
+** Get A Day Name From A Date Time
+#+BEGIN_SRC emacs-lisp
+(defun saa/what-day ()
+  "Show day name from spesific time"
+  (interactive)
+  (let ((date (read-string "Date: "))
+        (month (read-string "Month: "))
+        (year (read-string "Year: " (number-to-string (ts-year (ts-now))))))
+    (message (ts-day-name (ts-parse (s-join " " (list date month year)))))))
+#+END_SRC
+
+** Switch Window
+#+BEGIN_SRC emacs-lisp
+(defun saa/switch-windows ()
+  "Rotate your windows"
+  (interactive)
+  (cond ((not (> (count-windows)1))
+         (message "You can't rotate a single window!"))
+        (t
+         (setq i 1)
+         (setq numWindows (count-windows))
+         (while  (< i numWindows)
+           (let* (
+                  (w1 (elt (window-list) i))
+                  (w2 (elt (window-list) (+ (% i numWindows) 1)))
+
+                  (b1 (window-buffer w1))
+                  (b2 (window-buffer w2))
+
+                  (s1 (window-start w1))
+                  (s2 (window-start w2))
+                  )
+             (set-window-buffer w1  b2)
+             (set-window-buffer w2 b1)
+             (set-window-start w1 s2)
+             (set-window-start w2 s1)
+             (setq i (1+ i)))))))
+#+END_SRC
+
+** Join Lines
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "M-ö")
+            (lambda ()
+                  (interactive)
+                  (join-line -1)))
+#+END_SRC
+
+* Server
+This starts the Emacs server when .emacs gets loaded
+#+BEGIN_SRC emacs-lisp
+    (require 'server)
+    (if (not (server-running-p)) (server-start))
+#+END_SRC
+This changes C-x C-c to just hide Emacs until the next
+#+BEGIN_SRC emacs-lisp
+    ;;  time you use it.  We rebind C-M-c to be the command to
+    ;;  really kill Emacs.
+    (defun my-done ()
+      "Exit server buffers and hide the main Emacs window"
+      (interactive)
+      (server-edit)
+      (make-frame-invisible nil t))
+    (global-set-key (kbd "C-x C-c") 'my-done)
+    (global-set-key (kbd "C-M-c") 'save-buffers-kill-emacs)
+#+END_SRC
+
+* Packages Windows
+** (e,c)Emacs-Sql-Lisp
+#+BEGIN_SRC emacs-lisp
+(if (eq system-type 'windows-nt)
+(use-package emacsql-sqlite3
+  :custom (emacsql-sqlite-executable-path "C:/sqlite/sqlite3.exe")))
+#+END_SRC
+
+** (e,c)ISpell
+On Windows:
+    Install scoop
+    scoop install msys2
+    pacman -Syu aspell aspell-en
+#+BEGIN_SRC emacs-lisp
+(if (eq system-type 'windows-nt)
+(setq ispell-program-name "C:/Users/averh/.doom.d/packages/aspell.cmd"))
+#+END_SRC
+
+#+BEGIN_EXAMPLE emacs-lisp
+(when (boundp 'ispell-program-path)
+  (add-to-list 'exec-path ispell-program-path))
+(setq ispell-program-name "aspell")
+       (add-to-list 'exec-path "C:/hunspell/bin/")
+
+(setq ispell-program-name (locate-file "hunspell"
+    exec-path exec-suffixes 'file-executable-p))
+
+(setq ispell-local-dictionary-alist '(
+       (nil
+           "[[:alpha:]]"
+           "[^[:alpha:]]"
+           "[']"
+           t
+           ("-d" "en_US" "-p" "C:\\hunspell\\share\\hunspell\\personal.en")
+           nil
+           iso-8859-1)
+
+       ("american"
+           "[[:alpha:]]"
+           "[^[:alpha:]]"
+           "[']"
+           t
+           ("-d" "en_US" "-p" "C:\\hunspell\\share\\hunspell\\personal.en")
+           nil
+           iso-8859-1)
+       ("deutsch"
+           "[[:alpha:]ÄÖÜéäöüß]"
+           "[^[:alpha:]ÄÖÜéäöüß]"
+           "[']"
+           t
+           ("-d" "de_DE_frami" "-p"
+"C:\\hunspell\\share\\hunspell\\personal.de")
+           nil
+           iso-8859-1)
+       ("francais"
+           "[[:alpha:]ÀÂÇÈÉÊËÎÏÔÙÛÜàâçèéêëîïôùûü]"
+           "[^[:alpha:]ÀÂÇÈÉÊËÎÏÔÙÛÜàâçèéêëîïôùûü]"
+           "[-']"
+           t
+           ("-d" "fr-classique" "-p"
+"C:\\hunspell\\share\\hunspell\\personal.fr")
+           nil
+           utf-8)
+        ))
+
+#+END_EXAMPLE
+
+* Packages Installed
+** (e,c)Ace-Window
+This package aims to take the speed and predictability of windmove and pack it into a single key binding, similar to other-window. Just assign ace-window to a short key binding, as switching windows is a common task. I suggest M-o, as it's short and not bound to anything important in the default Emacs. \\
+[[https://github.com/abo-abo/ace-window/tree/7003c88cd9cad58dc35c7cd13ebc61c355fb5be7][GitHub - abo-abo/ace-window at 7003c88cd9cad58dc35c7cd13ebc61c355fb5be7]]
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "M-o") 'ace-window)
+#+END_SRC
+
+** (e,c)Amread
+This is a minor mode helping user speed-reading.
+#+BEGIN_SRC emacs-lisp
+(require 'amread-mode)
+(use-package amread-mode
+  :ensure t
+  :commands (amread-mode))
+(map! :leader
+:prefix "j"
+:desc "amread-mode" "a" #'amread-mode
+:desc "amread-start" "s" #'amread-start
+:desc "amread-stop" "q" #'amread-stop
+)
+#+END_SRC
+
+** (e,c)Auto-Dim-Other-Buffers
+Auto-Dim-Buffer
+#+BEGIN_SRC emacs-lisp
+(require 'auto-dim-other-buffers)
+(add-hook 'after-init-hook (lambda ()
+  (when (fboundp 'auto-dim-other-buffers-mode)
+    (auto-dim-other-buffers-mode t))))
+#+END_SRC
+
+** (e,c)Auto-Dictionary
+https://github.com/nschum/auto-dictionary-mode
+#+BEGIN_SRC emacs-lisp
+(require 'auto-dictionary)
+(add-hook 'flyspell-mode-hook (lambda () (auto-dictionary-mode 1)))
+
+#+END_SRC
+** (i,c)Company
+It’s nice to have completions almost all the time, in my opinion. Key strokes are just waiting to be saved!
+Now, the improvements from precident are mostly from remembering history, so let’s improve that memory.
+#+BEGIN_SRC emacs-lisp
+(after! company
+  (setq company-idle-delay 0.5
+        company-minimum-prefix-length 2)
+  (setq company-show-numbers t)
+(add-hook 'evil-normal-state-entry-hook #'company-abort)) ;; make aborting less annoying.
+;===========================================
+(setq-default history-length 1000)
+(setq-default prescient-history-length 1000)
+#+END_SRC
+
+** (e,c)Command-Log
+Show event history and command history of some or all buffers \\
+[[https://github.com/lewang/command-log-mode][GitHub - lewang/command-log-mode: log commands to buffer]]
+#+BEGIN_SRC emacs-lisp
+(defun saa/commandLogMode ()
+"Use Command Log Mode."
+(interactive)
+(command-log-mode)
+(global-command-log-mode)
+(clm/open-command-log-buffer))
+#+END_SRC
+
+** (e,c)Clipmon
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "<M-f2>") 'clipmon-autoinsert-toggle)
+(add-to-list 'after-init-hook 'clipmon-mode-start)
+#+END_SRC
+** (e,c)Deft
+Deft is an Emacs mode for quickly browsing, filtering, and editing directories of plain text notes, inspired by Notational Velocity. It was designed for increased productivity when writing and taking notes by making it fast and simple to find the right file at the right time and by automating many of the usual tasks such as creating new files and saving files.
+#+BEGIN_SRC emacs-lisp
+(use-package deft
+      :after org
+      :bind
+      ("C-c n d" . deft)
+      :custom
+      (deft-recursive t)
+      (deft-use-filter-string-for-filename t)
+      (deft-default-extension "org")
+      (deft-directory org_notes))
+#+END_SRC
+
+** (e,c)Ditaa
+Install Ditaa vis sudo \\
+[[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-ditaa.html][<code>Ditaa</code> Source Code Blocks in Org Mode]]
+#+BEGIN_SRC emacs-lisp
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((ditaa . t))) ; this line activates ditaa
+#+END_SRC
+
+** (b,e,c)Grip-Mode
+Instant Github-flavored Markdown/Org preview using Grip. \\
+[[https://github.com/seagle0128/grip-mode][GitHub - seagle0128/grip-mode: Instant Github-flavored Markdown/Org preview u...]]
+#+BEGIN_SRC emacs-lisp
+(setq grip-binary-path "~/.local/bin/grip")
+(use-package! grip-mode
+  :ensure t
+  :bind (:map markdown-mode-command-map
+         ("g" . grip-mode)))
+#+END_SRC
+
+** (e,c)Helm-Bibitex
+The *other* search engine for love and life
+;#+BEGIN_SRC emacs-lisp
+(setq
+ bibtex-completion-notes-path "~/Dropbox/zettelkasten/"
+ bibtex-completion-bibliography "~/Dropbox/zettelkasten/MeineBibliothek.bib"
+ bibtex-completion-pdf-field "file"
+ bibtex-completion-notes-template-multiple-files
+ (concat
+  "#+TITLE: ${title}\n"
+  "#+ROAM_KEY: cite:${=key=}\n"
+  "* TODO Notes\n"
+  ":PROPERTIES:\n"
+  ":Custom_ID: ${=key=}\n"
+  ":NOTER_DOCUMENT: %(orb-process-file-field \"${=key=}\")\n"
+  ":AUTHOR: ${author-abbrev}\n"
+  ":JOURNAL: ${journaltitle}\n"
+  ":DATE: ${date}\n"
+  ":YEAR: ${year}\n"
+  ":DOI: ${doi}\n"
+  ":URL: ${url}\n"
+  ":END:\n\n"
+  )
+ )
+;#+END_SRC
+
+** (e,c)Move-Text
+Move-Text allows you to move the current line using M-up / M-down (or any other bindings you choose) if a region is marked, it will move the region instead.
+[[https://github.com/emacsfodder/move-text][GitHub - emacsfodder/move-text: move current line or region up or down]]
+#+BEGIN_SRC emacs-lisp
+ (move-text-default-bindings)
+#+END_SRC
+
+** (e,c)Ob-Translate
+[[https://github.com/krisajenkins/ob-translate][GitHub - krisajenkins/ob-translate: Allows you to translate blocks of text wi...]]
+
+** (e,c)OX-Gfm
+#+BEGIN_SRC emacs-lisp
+(eval-after-load "org"
+  '(require 'ox-gfm nil t))
+#+END_SRC
+
+** (d,c)Paredit-Mode
+Paredit is a minor mode for performing structured editing of S-expression data. The typical example of this would be Lisp or Scheme source code.
+;#+BEGIN_SRC emacs-lisp
+(require 'paredit)
+    (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
+    (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
+    (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+    (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
+    (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
+    (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+    (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+;#+END_SRC
+
+** (e,c)Spotify -- not working
+#+BEGIN_SRC emacs-lisp
+(setq spotify-oauth2-client-secret "e5edcc7fcfda47a49582ae8fe4752749")
+(setq spotify-oauth2-client-id "7f72f4dfa00e46769254f677c62bf496")
+#+END_SRC
+
+** (o,c)Schreib-Werkstatt
+;#+BEGIN_SRC emacs-lisp
+(load! "~/.doom.d/packages/schreib-werkstatt/schreib-werkstatt.el")
+;#+END_SRC
+
+** (e,c)Wiki-Summary
+#+BEGIN_SRC emacs-lisp
+(setq wiki-summary-language-string "de")
+#+END_SRC
+
+** (e,c)Windmove
+#+BEGIN_SRC emacs-lisp
+(use-package windmove
+  :bind
+  (("<f2> <right>" . windmove-right)
+   ("<f2> <left>" . windmove-left)
+   ("<f2> <up>" . windmove-up)
+   ("<f2> <down>" . windmove-down)
+   ))
+#+END_SRC
+
+** (e,c)Webjump
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-x ö") 'webjump)
+
+;; Add Urban Dictionary to webjump
+(eval-after-load "webjump"
+'(add-to-list 'webjump-sites
+              '("Urban Dictionary" .
+                [simple-query
+                 "www.urbandictionary.com"
+                 "http://www.urbandictionary.com/define.php?term="
+                 ""])))
+#+END_SRC
+
+** (e,c)Pandoc
+#+BEGIN_SRC emacs-lisp
+;; open docx files in default application (ie msword)
+(setq org-file-apps
+      '(("\\.docx\\'" . default)
+        ("\\.mm\\'" . default)
+        ("\\.x?html?\\'" . default)
+        ("\\.pdf\\'" . default)
+        (auto-mode . emacs)))
+
+#+END_SRC
+
+* Packages Builtin
+** (d)Company-Childframe
+** (d)Deft
+Deft is an Emacs mode for quickly browsing, filtering, and editing directories of plain text notes, inspired by Notational Velocity. It was designed for increased productivity when writing and taking notes by making it fast and simple to find the right file at the right time and by automating many of the usual tasks such as creating new files and saving files.
+** (d)Doom
+What makes DOOM look the way it does
+** (d)Debugger
+; FIXME stepping through code, to help you add bugs
+** (d)Dired +icons ranger)
+; making dired pretty [functional]
+** (d)Doom-Dashboard
+A nifty splash screen for Emacs-DOOM
+** (d)Doom-Quit
+DOOM quit-message prompts when you quit Emacs
+** (d)Evil +everywhere)
+; come to the dark side, we have cookies
+** (d)Electric
+; smarter, keyword-based electric-indent
+** (d)File-templates
+; auto-snippets for empty files
+** (d)Format +onsave)
+; automated prettiness
+** (d)Fold
+; (nigh) universal code folding
+** (d)Helm
+** (d)Hl-Todo
+** (d)Hydra
+** (d)Ivy
+a search engine for love and life
+** (d)Ibuffer+icons)
+; interactive buffer management
+** (d)Javascript
+; all(hope(abandon(ye(who(enter(here))))))
+** (d)Magit
+; a git porcelain for Emacs
+** (d)Modeline
+; snazzy, Atom-inspired
+** (d)Mu4e +gmail)
+** (d)Modeline, plus API
+** (d)Markdown
+; writing docs for people to ignore
+** (d)Multiple-cursors
+; editing in many places at on
+** (d)Neotree
+; a project drawer, like NERDTree for vim
+** (d)Numbersi
+** (d)Ophints
+; highlight the region an operation acts on
+** (d)Popup + defaults
+; tame sudden yet inevitable temporary windows
+** (d)Pdf
+; pdf enhancements
+** (d)Rotate-text
+; cycle region at point between text candidates
+** (i)Refile
+[[https://blog.aaronbieber.com/2017/03/19/organizing-notes-with-refile.html][Organizing Notes With Refile - The Chronicle]]
+#+BEGIN_SRC emacs-lisp
+(setq org-refile-targets '((org-agenda-files :maxlevel . 3))) ;Refile Targets
+(setq org-refile-use-outline-path 'file) ;Refile to the Top Level
+(setq org-outline-path-complete-in-steps nil) ; Helm Stuff
+(setq org-refile-allow-creating-parent-nodes 'confirm) ;Creating new parents
+
+#+END_SRC
+
+#+RESULTS:
+: confirm
+
+** (d)Syntax +childframe)
+; tasing you for every semicolon you forget
+** (d)Spell +everywhere +aspell)
+; tasing you for misspelling mispelling
+** (d)Sh
+; she sells {ba,z,fi}sh shells on the C xor
+** (d)Snippets
+; my elves. They type so I don't have to
+** (d)Term
+; basic terminal emulator for Emacs
+** (d)Undo +tree)
+; persistent, smarter undo for your inevitable mistakes
+** (d)Vi-tilde-fringe
+; fringe tildes to mark beyond EOB
+** (d)Vc-gutter
+; vcs diff in the fringe
+** (d)Vc
+; version-control and Emacs, sitting in a tree
+** (d)Window-select
+; visually switch windows
+** (d)Word-wrap
+; soft wrapping with language-aware indent
+** (d)Workspaces
+; tab emulation, persistence & separate workspaces
+** (d)Eval +overlay)
+; run code, run (also, repls)
+** (d)Emacs-lisp
+; drown in parentheses
+** (d)Lookup
+; navigate your code and its documentation
+** (d)Lsp +peek)
+** (d)Latex +ĺatexmk)
+; writing papers in Emacs has never been so fun
+** (d)Python
+; beautiful is better than ugly
+** (d)Rss +org)
+; emacs as an RSS reader
+** (d)Literate
+** (d)Default +bindings +smartparens))
+* Packages Interesting
+** Abbrev Mode
+Emacs has a nice feature to expand abbreviations. If for example, you wanted an abbreviation for ‘Your Name’ to be ‘yn’, just type ‘yn’ and with your point after the ‘n’ do C-x a i g (mnemonic add inverse global) and enter the expansion, in this case ‘Your Name’. In the future, whenever you type ‘yn’ your name will be inserted. The abbrevs are automatically saved between sessions in a file ~/.abbrev_defs.
+https://www.emacswiki.org/emacs/AbbrevMode
+
+** Dash
+A modern list api for Emacs. No 'cl required.
+
+** Deadgrep
+Deadgrep is the fast, beautiful text search that your Emacs deserves.
+[[https://github.com/Wilfred/deadgrep][GitHub - Wilfred/deadgrep: fast, friendly searching with ripgrep and Emacs]]
+;;(package! sql-indent)
+;;(package! ascii-art-to-unicode)
+;;(package! wakatime-mode)
+
+** Forges
+Work with Git forges, such as Github and Gitlab, from the comfort of Magit and the rest of Emacs.
+https://github.com/magit/forge/tree/6f299d2d84a0c92a6656a6db03656c2d554d2cac
+
+** Flymd
+On the fly markdown preview.
+[[https://github.com/mola-T/flymd][GitHub - mola-T/flymd: flymd - Emacs on the fly markdown preview]]
+
+** Indium
+Indium is a JavaScript development environment for Emacs.
+[[https://indium.readthedocs.io/en/latest/][Indium  Indium 2.1.4 documentation]]
+
+** Markdown-Menu
+Live-markdown previews are quite useful when editing large documents. flymd offers live preview, but doesn't work for org-mode source regions natively. Because of this, we need to change their "is this a markdown file?" regex slightly to include the string "markdown".
+
+** Olivetti
+A simple Emacs minor mode for a nice writing environment.
+[[https://github.com/rnkn/olivetti][GitHub - rnkn/olivetti: Emacs minor mode for a nice writing environment]]
+
+** Origami
+A text folding minor mode for Emacs.
+[[https://github.com/gregsexton/origami.el][GitHub - gregsexton/origami.el: A folding minor mode for Emacs]]
+
+** Ox Clip
+This module copies selected regions in org-mode as formatted text on the clipboard that can be pasted into other applications. When not in org-mode, the htmlize library is used instead. <sudo apt-get install xclip >
+[[https://github.com/jkitchin/ox-clip][GitHub - jkitchin/ox-clip: Copy formatted content from org-mode]]
+
+** Org Code Library Mode
+Code-library is a tool that use org-mode to collect code snippets.
+
+https://github.com/lujun9972/code-library/blob/32d59c5c845d6dbdda18f9bd1c03a58d55417fc5/code-library.el
+
+** !Org2clip
+** Prettier JS
+prettier-js is a function that formats the current buffer using prettier. The package also exports a minor mode that applies (prettier-js) on save.
+[[https://github.com/prettier/prettier-emacs][GitHub - prettier/prettier-emacs: Minor mode to format JS code on file save]]
+
+** Simple Httpd
+** Spotify
+[[https://github.com/danielfm/spotify.el][GitHub - danielfm/spotify.el: Control the Spotify app from within Emacs.]]
+
+** Telega
+https://github.com/zevlg/telega.el
+
+** UndoTree
+Emacs has a powerful undo system. Unlike the standard undo/redo system in most software, it allows you to recover any past state of a buffer (whereas the standard undo/redo system can lose past states as soon as you redo). However, this power comes at a price: many people find Emacs' undo system confusing and difficult to use, spawning a number of packages that replace it with the less powerful but more intuitive undo/redo system.
+[[https://github.com/apchamberlain/undo-tree.el][GitHub - apchamberlain/undo-tree.el: Visualize Emacs undo information as a gr...]]
+
+** XClip
+I often end up using Emacs in the terminal, and I've been very frustrated that text killed in Emacs in the terminal doesn't make its way into the X clipboard.
+[[https://www.emacswiki.org/emacs/xclip.el][EmacsWiki: xclip.el]]
+
+
+
+* Org
+** Org-Settings
+#+BEGIN_SRC emacs-lisp
+(setq org-directory org_notes)
+(setq org-use-property-inheritance t       ; We like to inhert properties from their parents
+      org-catch-invisible-edits 'smart)    ; Catch invisible edits
+(setq org-agenda-files (quote
+   (org_agenda
+    org_notes )))                                    ; Org-Agenda folders
+#+END_SRC
+
+** Org-Export-Folder
+#+BEGIN_SRC emacs-lisp
+(defun org-export-output-file-name-modified (orig-fun extension &optional subtreep pub-dir)
+  (unless pub-dir
+    (setq pub-dir org_export)
+    (unless (file-directory-p pub-dir)
+      (make-directory pub-dir)))
+  (apply orig-fun extension subtreep pub-dir nil))
+(advice-add 'org-export-output-file-name :around #'org-export-output-file-name-modified)
+#+END_SRC
+
+** (e,c)Org-Ref
+#+BEGIN_SRC emacs-lisp
+(use-package! org-ref
+    :config
+    (setq
+         org-ref-completion-library 'org-ref-ivy-cite
+         org-ref-get-pdf-filename-function 'org-ref-get-pdf-filename-helm-bibtex
+         org-ref-default-bibliography (list zot_bib)
+         org-ref-bibliography-notes org_bib
+         org-ref-note-title-format "* TODO %y - %t\n :PROPERTIES:\n  :Custom_ID: %k\n  :NOTER_DOCUMENT: %F\n :ROAM_KEY: cite:%k\n  :AUTHOR: %9a\n  :JOURNAL: %j\n  :YEAR: %y\n  :VOLUME: %v\n  :PAGES: %p\n  :DOI: %D\n  :URL: %U\n :END:\n\n"
+         org-ref-notes-directory org_notes
+         org-ref-notes-function 'orb-edit-notes))
+#+END_SRC
+
+** (i,c)Org-Capture-Template
+#+BEGIN_SRC emacs-lisp
+;; Actually start using templates
+(after! org-capture
+  ;; Firefox and Chrome
+  (add-to-list 'org-capture-templates
+               '("P" "Protocol" entry ; key, name, type
+                 (file+headline +org-capture-notes-file "Inbox") ; target
+                 "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?"
+                 :prepend t ; properties
+                 :kill-buffer t))
+  (add-to-list 'org-capture-templates
+               '("L" "Protocol Link" entry
+                 (file+headline +org-capture-notes-file "Inbox")
+                 "* %? [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n"
+                 :prepend t
+                 :kill-buffer t))
+)
+#+END_SRC
+
+** (i)Org-Babel
+Running code in emacs
+** (i)Org-Dragndrop
+** (i)Org-Editor evil
+** (i)Org-Export
+; Exporting org to whatever you want
+** (i)Org-Gnuplot
+** (i)Org-Hugo
+** (i)Org-Ox-clip
+** (i)Org-Pandoc
+** (i)Org-Present
+;organize your plain life in plain text
+** (i)Org-Pomodoro
+** (i)Org-Present
+;organize your plain life in plain text
+** (e)Org-Chef
+** (e)Org-Doct
+- Desc:
+Doct is a function that provides an alternative, declarative syntax for describing Org capture templates.
+
+** (e)Org-Cliplink
+** (e)Org-Graph
+** (e)!Org-Index
+A personal adaptive index for org. Unfortunetly not working for me. [[https://github.com/marcIhm/org-index][GitHub - marcIhm/org-index: A personal adaptive index for org.]]
+** (e)Org-Plot
+** (e)Org-Pretty-Tags
+** (e)Org-Ref-Pretty-Table
+** (e)Org-Super-Agenda
+** (e,c)Org-Sidebar
+This package presents helpful sidebars for Org buffers. Sidebars are customizable using org-ql queries and org-super-agenda grouping.
+[[https://github.com/alphapapa/org-sidebar][GitHub - alphapapa/org-sidebar: A helpful sidebar for Org mode]]
+** (e,c)Org-Noter
+#+BEGIN_SRC emacs-lisp
+(defun org-noter-insert-selected-text-inside-note-content ()
+  (interactive)
+  (progn (setq currenb (buffer-name))
+    (org-noter-insert-precise-note)
+    (set-buffer currenb)
+    (org-noter-insert-note)))
+
+(setq org-noter-notes-window-location 'horizontal-split)
+#+END_SRC
+
+** (e)Org-Fancy-Priorities
+Inspired by org-bullets, I created a minor mode that displays org priorities as custom strings. This mode does NOT change your files in any way, it only displays the priority part of a heading as your preferred string value. \\
+[[https://github.com/harrybournis/org-fancy-priorities][GitHub - harrybournis/org-fancy-priorities: Display Org Mode priorities as cu...]]
+** (e)Org-Babel-Translate
+Translate text in Emacs Org-Mode-Blocks: \\
+[[https://github.com/krisajenkins/ob-translate][GitHub - krisajenkins/ob-translate: Allows you to translate blocks of text wi...]]
+
+** (e,c)Org-Journal
+#+BEGIN_SRC emacs-lisp
+(use-package org-journal
+      :bind
+      ("C-c n j" . org-journal-new-entry)
+      :custom
+      (org-journal-dir org_notes)
+      (org-journal-date-prefix "#+TITLE: ")
+      (org-journal-file-format "%Y-%m-%d.org")
+      (org-journal-date-format "%A, %d %B %Y"))
+    (setq org-journal-enable-agenda-integration t)
+#+END_SRC
+
+** (e,c)Org-Protocol
+#+BEGIN_SRC emacs-lisp
+(if (eq system-type 'windows-nt)
+(add-to-list 'load-path "C:/ProgramData/chocolatey/lib/Emacs/tools/emacs/share/emacs/26.3/lisp/org/")
+(require 'org-protocol))
+#+END_SRC
+
+** (e,c)Org-Noter
+#+BEGIN_SRC emacs-lisp
+(use-package org-noter
+  :after (:any org pdf-view)
+  :config
+  (setq
+   ;; The WM can handle splits
+   org-noter-notes-window-location 'other-frame
+   ;; Please stop opening frames
+   org-noter-always-create-frame nil
+   ;; I want to see the whole file
+   org-noter-hide-other nil
+   ;; Everything is relative to the main notes file
+   org-noter-notes-search-path (list org_notes)
+   )
+  )
+#+END_SRC
+* Roam
+** Roam Settings
+#+BEGIN_SRC emacs-lisp
+(setq org-roam-directory org_notes)
+(setq org-roam-buffer-position 'right)
+(setq org-roam-buffer-width 0.3)
+(setq org-roam-index-file "index.org")
+(setq org-roam-verbose nil)  ; https://youtu.be/fn4jIlFwuLU
+(setq org-roam-buffer-no-delete-other-windows t) ; make org-roam buffer sticky
+(setq org-roam-completion-system 'ivy)(after! org-roam
+(map! :leader
+:prefix "r"
+:desc "org-roam" "r" #'org-roam
+:desc "org-roam-switch-to-buffer" "b" #'org-roam-switch-to-buffer
+:desc "org-roam-find-file" "f" #'org-roam-find-file
+:desc "org-roam-show-graph" "g" #'org-roam-show-graph
+:desc "org-roam-insert" "i" #'org-roam-insert
+:desc "org-roam-capture" "c" #'org-roam-capture
+:desc "org-roam-find-directory" "d" #'org-roam-find-directory
+:desc "org-roam-company" "k" #'company-org-roam
+:desc "org-roam-find-ref" "x" #'org-roam-find-ref
+:desc "org-roam-graph" "y" #'org-roam-graph
+:desc "org-roam-jump-to-index" "j" #'org-roam-jump-to-index
+))
+#+END_SRC
+
+** Roam Templates
 #+BEGIN_SRC emacs-lisp
 (setq org-roam-capture-templates
 '(
@@ -372,7 +1223,7 @@ it can be passed in POS."
   ("n" "note" plain (function org-roam--capture-get-point)
   "%?"
     :file-name  "%(format-time-string \"%Y%m%d%H%M%S-${slug}\" (current-time) t)"
-    :head "#+TITLE: ${title}\n#+Author: Sean Averhoff\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n- tags :: \n----------\n"
+    :head "#+TITLE: ${title}\n#+Author: Sean Averhoff\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+ROAM_Tags: \n#+PANDOC_OPTIONS: reference-doc:reference.docx\n#+Setupfile: ~/.doom.d/templateas/org-html-themes/setup/theme-readtheorg.setup\n----------\n"
     :unnarrowed t)
 
   ("p" "private" plain (function org-roam--capture-get-point)
@@ -380,16 +1231,111 @@ it can be passed in POS."
     :file-name "private-${slug}"
     :head "#+TITLE: ${title}\n#+Author: ${author-or-editor}"
     :unnarrowed t)))
-
 #+END_SRC
 
-* Server etc
+** Roam-Ref-Templates
 #+BEGIN_SRC emacs-lisp
-(setq +mu4e-backend 'offlineimap)
+(after! org-roam
+      (setq org-roam-ref-capture-templates
+            '(("r" "ref" plain (function org-roam-capture--get-point)
+               "%?"
+               :file-name "websites/${slug}"
+               :head "#+TITLE: ${title}
+    ,#+ROAM_KEY: ${ref}
+    - source :: ${ref}"
+               :unnarrowed t))))
+#+END_SRC
+
+** Roam-Company-Org
+Company-org-roam is a company backend for use with org-roam. In Org-roam buffers, it provides completion for Org-roam files using its title.\\
+[[https://github.com/org-roam/company-org-roam/tree/674c2bd493f571c5323d69279557a6c18ccbd14e][GitHub - org-roam/company-org-roam at 674c2bd493f571c5323d69279557a6c18ccbd14e]]
+#+BEGIN_SRC emacs-lisp
+(require 'company-org-roam)
+(use-package company-org-roam
+:when (featurep! :completion company)
+:after org-roam
+(setq org-support-shift-select t)
+:config
+(set-company-backend! 'org-mode '(company-org-roam company-yasnippet company-dabbrev)))
+#+END_SRC
+
+** Roam-Server
+The graph utilizes org-roam protocol. Which means if you click on one of the nodes, it will open the corresponding file in Emacs. For this future to work, org-roam protocol should be configured in the system.
+http://127.0.0.1:8080/
+(M-x org-roam-server-mode)
+
+#+BEGIN_SRC emacs-lisp
+(require 'org-roam-server)
+;;(use-package! org-roam-server :ensure t)
+(use-package! org-roam-server
+  :ensure t
+  :config
+  (setq org-roam-server-host "127.0.0.1"
+        org-roam-server-port 8080
+        org-roam-server-export-inline-images t
+        org-roam-server-authenticate nil
+        org-roam-server-network-arrows nil
+        org-roam-server-network-label-truncate t
+        org-roam-server-network-label-truncate-length 60
+        org-roam-server-network-label-wrap-length 20))
+
 
 #+END_SRC
 
-* Beta
-* Plugins
-** Org
-** Roam
+** Roam-Bibtex
+[[https://github.com/org-roam/org-roam-bibtex][GitHub - org-roam/org-roam-bibtex: Connector between Org-roam, BibTeX-complet...]]
+#+BEGIN_SRC emacs-lisp
+(use-package org-roam-bibtex
+  :after (org-roam)
+  :hook (org-roam-mode . org-roam-bibtex-mode)
+  :config
+  (setq org-roam-bibtex-preformat-keywords
+   '("=key=" "title" "url" "file" "author-or-editor" "keywords"))
+  (setq orb-templates
+        '(("r" "ref" plain (function org-roam-capture--get-point)
+           ""
+           :file-name "${slug}"
+           :head "#+TITLE: ${=key=}: ${title}\n#+ROAM_KEY: ${ref}
+
+- tags ::
+- keywords :: ${keywords}
+
+\n* ${title}\n  :PROPERTIES:\n  :Custom_ID: ${=key=}\n  :URL: ${url}\n  :AUTHOR: ${author-or-editor}\n  :NOTER_DOCUMENT: %(orb-process-file-field \"${=key=}\")\n  :NOTER_PAGE: \n  :END:\n\n"
+
+           :unnarrowed t))))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+;; If you cloned the repository
+(use-package org-roam-bibtex
+  :load-path org_notes ;Modify with your own path
+  :hook (org-roam-mode . org-roam-bibtex-mode)
+  :bind (:map org-mode-map
+         (("C-c n a" . orb-note-actions))))
+#+END_SRC
+
+** Roam-Protocol
+#+BEGIN_SRC emacs-lisp
+(use-package org-roam-protocol
+  :after org-protocol)
+#+END_SRC
+
+** Org-Roam-Graph
+#+BEGIN_SRC emacs-lisp
+(if (eq system-type 'windows-nt)
+(setq org-roam-graph-executable "C:/Program Files (x86)/Graphviz2.38/bin/dot.exe")
+(setq org-roam-graph-viewer "C:/Program Files/Mozilla Firefox/firefox.exe"))
+#+END_SRC
+
+
+* GkRoam
+#+BEGIN_SRC emacs-lisp
+(use-package gkroam
+  :ensure t
+  :init
+  (setq gkroam-root-dir "~/../../../mnt/c/Users/averh/Dropbox/org-templates")
+  (setq gkroam-window-margin 4)
+  (setq org-startup-folded nil)
+  :bind
+  (("C-c r I . gkroam-index")))
+#+END_SRC
